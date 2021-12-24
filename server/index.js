@@ -43,6 +43,24 @@ app.get("/tasks", async(req, res) => {
     }
 });
 
+// get all high priority tasks
+app.get("/tasks/highpriority", async(req, res) => {
+    try {
+        const prioritizedTasks = await pool.query("SELECT * FROM task as t INNER JOIN module as m on t.module_id = m.module_id WHERE priority='High' OR priority= 'Medium' FETCH FIRST 5 ROWS ONLY;");
+        for (var i = 0; i < prioritizedTasks.rows.length; i++) {
+            var row = prioritizedTasks.rows[i];
+            var todaysDate = new Date()
+            var deadlineCorrectFormat = new Date(row.deadline);
+            var daysLeft = (deadlineCorrectFormat - todaysDate)/(1000*3600*24)
+            console.log(daysLeft);
+            row.daysLeft = daysLeft.toFixed(0);;      
+        }
+        res.json(prioritizedTasks.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
 // get specific task
 app.get("/tasks/:id", async(req, res) => {
     try {

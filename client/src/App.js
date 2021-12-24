@@ -17,16 +17,12 @@ function App() {
         <Router>
     <Sidebar />
     <Routes>
-      <Route path="/home" exact component={Home} />
+      <Route path="/home" element={<Home/>}/>
       <Route path="/tasks" element={<Tasks/>} />
     </Routes>
     </Router>
           
       <div className="container">
-        {/* <InputTask>
-        </InputTask>
-      <ListTasks></ListTasks> */}
-         
       </div>
      
     </Fragment>

@@ -1,6 +1,8 @@
 import { React, Fragment, useEffect, useState } from "react";
 import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader } 
 from 'mdb-react-ui-kit';
+import { AiFillFire } from 'react-icons/ai';
+
 const ListTasks = () => {
     const [tasks, setTasks] = useState([]);
 
@@ -39,7 +41,7 @@ const ListTasks = () => {
                         <MDBCard shadow='0' border='dark' background='white' style={{ maxWidth: '18rem' }}>
                             <MDBCardHeader>{task.module_name}</MDBCardHeader>
                             <MDBCardBody className='text-dark'>
-                                <MDBCardTitle>{task.description}</MDBCardTitle>
+                               {task.description}
                                 {/* <MDBCardText> */}
                                     <div className="row no-gutters mt-auto mb-2 justify-content-center">
                                         <div className="col-4 text-center">
@@ -52,7 +54,7 @@ const ListTasks = () => {
                                         </div>
                                         <div className="col-4 text-center">
                                             <br/>Priority
-                                            <h5>{task.priority}</h5>
+                                            <h5 className={task.priority}><AiFillFire/></h5>
                                             </div>
                                             </div>
                                 {/* </MDBCardText> */}                              
