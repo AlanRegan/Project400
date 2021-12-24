@@ -1,11 +1,8 @@
 import { React, Fragment, useEffect, useState } from "react";
 import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader } 
 from 'mdb-react-ui-kit';
-
 const ListTasks = () => {
     const [tasks, setTasks] = useState([]);
-
-
 
     const getTasks = async () => {
         try {
@@ -35,6 +32,7 @@ const ListTasks = () => {
 
     return ( 
     <Fragment>
+        <h1 className="mt-3">All Tasks</h1>
             <div className="row">
                 {tasks.map(task => (
                     <div className="mt-2 col col-md-3" key={task.task_id}>
@@ -45,17 +43,14 @@ const ListTasks = () => {
                                 {/* <MDBCardText> */}
                                     <div className="row no-gutters mt-auto mb-2 justify-content-center">
                                         <div className="col-4 text-center">
-                                            {/* <i className="fa fa-fw fa-star"></i> */}
                                             <br/>Days Left
                                             <h5>{task.daysLeft}</h5>
                                         </div>
                                         <div className="col-4 text-center">
-                                            <i className="fa fa-fw fa-heart"></i>
                                             <br/>CA Value
                                             <h5>{task.cavalue}%</h5>
                                         </div>
                                         <div className="col-4 text-center">
-                                            <i className="fa fa-fw fa-file-o"></i>
                                             <br/>Priority
                                             <h5>{task.priority}</h5>
                                             </div>

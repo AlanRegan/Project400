@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+/* 
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  }
+  .home,
+  .tasks{
+  display: flex;
+  margin-left: 260px;
+  font-size: 2rem;
+  }
+   */
