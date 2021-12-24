@@ -39,28 +39,28 @@ const ListTasks = () => {
                 {tasks.map(task => (
                     <div className="mt-2 col col-md-3" key={task.task_id}>
                         <MDBCard shadow='0' border='dark' background='white' style={{ maxWidth: '18rem' }}>
-                            <MDBCardHeader>Artifical Intelligence</MDBCardHeader>
+                            <MDBCardHeader>{task.module_name}</MDBCardHeader>
                             <MDBCardBody className='text-dark'>
                                 <MDBCardTitle>{task.description}</MDBCardTitle>
                                 {/* <MDBCardText> */}
                                     <div className="row no-gutters mt-auto mb-2 justify-content-center">
                                         <div className="col-4 text-center">
-                                            <i className="fa fa-fw fa-star"></i>
+                                            {/* <i className="fa fa-fw fa-star"></i> */}
                                             <br/>Days Left
-                                            <h4>{task.daysLeft}</h4>
+                                            <h5>{task.daysLeft}</h5>
                                         </div>
                                         <div className="col-4 text-center">
                                             <i className="fa fa-fw fa-heart"></i>
                                             <br/>CA Value
-                                            <h4>20%</h4>
+                                            <h5>{task.cavalue}%</h5>
                                         </div>
                                         <div className="col-4 text-center">
                                             <i className="fa fa-fw fa-file-o"></i>
                                             <br/>Priority
-                                            <h4>{task.priority}</h4>
+                                            <h5>{task.priority}</h5>
                                             </div>
                                             </div>
-                                {/* </MDBCardText> */}
+                                {/* </MDBCardText> */}                              
                             </MDBCardBody>
                         </MDBCard>
                     </div>
