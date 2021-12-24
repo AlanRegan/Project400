@@ -1,5 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+//import "bootstrap/dist/css/bootstrap.min.css";
+import Button from 'react-bootstrap/Button';
+
 
 const InputTask = () => {
     // task
@@ -12,6 +16,11 @@ const InputTask = () => {
     const [module_id, setModuleID] = useState("");
     const [ca_total, setCATotalValue] = useState("");
     const [modules, setModule] = useState([]);
+    // modal
+    const [taskModalShow, setTaskModalShow] = React.useState(false);
+    const [moduleModalShow, setModuleModalShow] = React.useState(false);
+
+
 
     // get modules for task module name dropbox
     const getModules = async () => {
@@ -72,60 +81,116 @@ const InputTask = () => {
 
     return (
         <Fragment>
-            {/* module */}
-            <h3 className="text-center mt-5">Create Module</h3>
-            <form className="text-center mt-3" onSubmit={onSubmitModuleForm}>
-            <label for="module_name">Module Name</label>
-            <input
-                type="text"
-                className="form-control"
-                value={module_name}
-                onChange={e => setModuleName(e.target.value)}>
-            </input>
-            <label for="ca_total">CA Total</label>
-            <input
-                type="text"
-                className="form-control"
-                value={ca_total}
-                onChange={e => setCATotalValue(e.target.value)}>
-            </input>
-            <button className="btn btn-success mt-2">Add Module</button>
-            </form>
-            {/* task */}
-            <h3 className="text-center mt-5">Create Tasks</h3>
-            <form className="text-center mt-3" onSubmit={onSubmitTaskForm}>
-            <label for="module_name">Module Name</label>
-                <select className="form-control" onChange={handleModuleChange}>
-                    <option value="⬇️ Select a Module ⬇️"> -- Select a Module -- </option>
-                    {modules.map((module) => <option value={module.module_id}>{module.module_name}</option>)}
-                </select>
-                <label for="description">Task Description</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}>
-                </input>
-                <label for="deadline">Due Date</label>
-                <Form.Control type="date" name='deadline' value={deadline}
-                    onChange={e => setDeadline(e.target.value)} />
-                <label for="priority">Priority</label>
-                <select defaultValue="Medium" className="form-control" value={priority} onChange={e => setPriority(e.target.value)}>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                </select>
-                <label for="caValue">CA Value</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    value={caValue}
-                    onChange={e => setCAValue(e.target.value)}>
-                </input>
-                <button className="btn btn-success mt-2">Add Task</button>
-            </form>
+            <button className="btn btn-success mt-2" onClick={() => setTaskModalShow(true)}>Create Task</button>
+            <button className="btn btn-success mt-2" onClick={() => setModuleModalShow(true)}>Create Module</button>
+
+            <TaskCreationModal
+                show={taskModalShow}
+                onHide={() => setTaskModalShow(false)}
+            />
+            <ModuleCreationModal
+                show={moduleModalShow}
+                onHide={() => setModuleModalShow(false)}
+            />
         </Fragment>
     );
+
+    // task creation modal
+    function TaskCreationModal(props) {
+        return (
+            <Modal
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Create Task
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form className="text-center mt-3" onSubmit={onSubmitTaskForm}>
+                        <label for="module_name">Module Name</label>
+                        <select className="form-control" onChange={handleModuleChange}>
+                            <option value="⬇️ Select a Module ⬇️"> -- Select a Module -- </option>
+                            {modules.map((module) => <option value={module.module_id}>{module.module_name}</option>)}
+                        </select>
+                        <label for="description">Task Description</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={description}
+                            onChange={e => setDescription(e.target.value)}>
+                        </input>
+                        <label for="deadline">Due Date</label>
+                        <Form.Control type="date" name='deadline' value={deadline}
+                            onChange={e => setDeadline(e.target.value)} />
+                        <label for="priority">Priority</label>
+                        <select defaultValue="Medium" className="form-control" value={priority} onChange={e => setPriority(e.target.value)}>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                        <label for="caValue">CA Value</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={caValue}
+                            onChange={e => setCAValue(e.target.value)}>
+                        </input>
+                        <button className="btn btn-success mt-2">Add Task</button>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={props.onHide}>Close</Button>
+                </Modal.Footer>
+            </Modal>
+        );
+    }
+
+    // task creation modal
+    function ModuleCreationModal(props) {
+        return (
+            <Modal
+                {...props}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Create Module
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form className="text-center mt-3" onSubmit={onSubmitModuleForm}>
+                        <label for="module_name">Module Name</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={module_name}
+                            onChange={e => setModuleName(e.target.value)}>
+                        </input>
+                        <label for="ca_total">CA Total</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={ca_total}
+                            onChange={e => setCATotalValue(e.target.value)}>
+                        </input>
+                        <button className="btn btn-success mt-2">Add Module</button>
+                    </form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={props.onHide}>Close</Button>
+                </Modal.Footer>
+            </Modal>
+        );
+    }
 };
+
+
+
 
 export default InputTask;
