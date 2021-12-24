@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
 
-
 const InputTask = () => {
     // task
     const [description, setDescription] = useState("");
@@ -16,11 +15,14 @@ const InputTask = () => {
     const [module_id, setModuleID] = useState("");
     const [ca_total, setCATotalValue] = useState("");
     const [modules, setModule] = useState([]);
-    // modal
-    const [taskModalShow, setTaskModalShow] = React.useState(false);
-    const [moduleModalShow, setModuleModalShow] = React.useState(false);
-
-
+    // modal - task creation
+    const [showTask, setShowTask] = useState(false);
+    const handleCloseTask = () => setShowTask(false);
+    const handleShowTask = () => setShowTask(true);
+    // modal - module creation
+    const [showModule, setShowModule] = useState(false);
+    const handleCloseModule = () => setShowModule(false);
+    const handleShowModule = () => setShowModule(true);
 
     // get modules for task module name dropbox
     const getModules = async () => {
@@ -28,10 +30,10 @@ const InputTask = () => {
             const response = await fetch("http://localhost:5000/modules")
             const jsonData = await response.json();
             setModule(jsonData);
-            for (var i = 0; i < jsonData.length; i += 1) {
-                // console.log(jsonData[i].outlet_name);
-            }
-            console.log(jsonData);
+            // for (var i = 0; i < jsonData.length; i += 1) {
+            //     // console.log(jsonData[i].outlet_name);
+            // }
+            // console.log(jsonData);
         } catch (err) {
             console.error(err.message)
         }
@@ -81,33 +83,12 @@ const InputTask = () => {
 
     return (
         <Fragment>
-            <button className="btn btn-success mt-2" onClick={() => setTaskModalShow(true)}>Create Task</button>
-            <button className="btn btn-success mt-2" onClick={() => setModuleModalShow(true)}>Create Module</button>
-
-            <TaskCreationModal
-                show={taskModalShow}
-                onHide={() => setTaskModalShow(false)}
-            />
-            <ModuleCreationModal
-                show={moduleModalShow}
-                onHide={() => setModuleModalShow(false)}
-            />
-        </Fragment>
-    );
-
-    // task creation modal
-    function TaskCreationModal(props) {
-        return (
-            <Modal
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
+            <button className="btn btn-success mt-2 me-1" onClick={handleShowTask}>Create Task</button>
+            <button className="btn btn-success mt-2 me-1" onClick={handleShowModule}>Create Module</button>
+            {/* task modal */}
+            <Modal show={showTask} onHide={handleCloseTask}>
                 <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Create Task
-                    </Modal.Title>
+                    <Modal.Title>Create Task</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="text-center mt-3" onSubmit={onSubmitTaskForm}>
@@ -142,26 +123,12 @@ const InputTask = () => {
                         <button className="btn btn-success mt-2">Add Task</button>
                     </form>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={props.onHide}>Close</Button>
-                </Modal.Footer>
             </Modal>
-        );
-    }
 
-    // task creation modal
-    function ModuleCreationModal(props) {
-        return (
-            <Modal
-                {...props}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
+            {/* module modal */}
+            <Modal show={showModule} onHide={handleCloseModule}>
                 <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Create Module
-                    </Modal.Title>
+                    <Modal.Title>Create Task</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="text-center mt-3" onSubmit={onSubmitModuleForm}>
@@ -182,12 +149,9 @@ const InputTask = () => {
                         <button className="btn btn-success mt-2">Add Module</button>
                     </form>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={props.onHide}>Close</Button>
-                </Modal.Footer>
             </Modal>
-        );
-    }
+        </Fragment>
+    );
 };
 
 
