@@ -14,6 +14,7 @@ const InputTask = () => {
     const [module_name, setModuleName] = useState("");
     const [module_id, setModuleID] = useState("");
     const [ca_total, setCATotalValue] = useState("");
+    const [module_colour, setModuleColour] = useState("");
     const [modules, setModule] = useState([]);
     // modal - task creation
     const [showTask, setShowTask] = useState(false);
@@ -23,6 +24,13 @@ const InputTask = () => {
     const [showModule, setShowModule] = useState(false);
     const handleCloseModule = () => setShowModule(false);
     const handleShowModule = () => setShowModule(true);
+    // module colours dropbox
+    const colourData = [
+        { value: "Red", label: "Red" },
+        { value: "Green", label: "Green" },
+        { value: "Blue", label: "Blue" },
+        { value: "Yellow", label: "Yellow" }
+    ];
 
     // get modules for task module name dropbox
     const getModules = async () => {
@@ -30,10 +38,6 @@ const InputTask = () => {
             const response = await fetch("http://localhost:5000/modules")
             const jsonData = await response.json();
             setModule(jsonData);
-            // for (var i = 0; i < jsonData.length; i += 1) {
-            //     // console.log(jsonData[i].outlet_name);
-            // }
-            // console.log(jsonData);
         } catch (err) {
             console.error(err.message)
         }
@@ -53,7 +57,7 @@ const InputTask = () => {
     const onSubmitModuleForm = async (e) => {
         e.preventDefault();
         try {
-            const body = { module_name, ca_total };
+            const body = { module_name, ca_total, module_colour };
             const response = await fetch("http://localhost:5000/modules", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -146,6 +150,10 @@ const InputTask = () => {
                             value={ca_total}
                             onChange={e => setCATotalValue(e.target.value)}>
                         </input>
+                        <label for="module_colour">Module Colour</label>
+                        <select className="form-control" value={module_colour} onChange={e => setModuleColour(e.target.value)}>
+                            {colourData.map(colour => <option value={colour.value}>{colour.label}</option>)}
+                        </select>
                         <button className="btn btn-success mt-2">Add Module</button>
                     </form>
                 </Modal.Body>

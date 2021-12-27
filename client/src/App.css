@@ -61,9 +61,21 @@ color: red;
      color: orange;
    }
 
+   .Green {
+     background-color: rgb(55, 133, 55) !important;
+     /* color: white !important; */
+   }
+
    body {
     background-color: #f9f9fa
 }
+
+h5 {
+  font-weight: 500;
+  font-size: 0.94rem;
+  /* color: white !important; */
+}
+
 
    /* Prioritized Table */
 .flex {

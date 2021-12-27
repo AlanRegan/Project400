@@ -105,10 +105,10 @@ app.delete("/tasks/:id", async (req, res) => {
 // create module
 app.post("/modules", async(req, res) => {
     try{
-        const { module_name, ca_total} = req.body;
+        const { module_name, ca_total, module_colour} = req.body;
         const newModule = await pool.query
-            ("INSERT INTO module (module_name, ca_total) VALUES($1, $2) RETURNING *",
-            [module_name, ca_total]
+            ("INSERT INTO module (module_name, ca_total, module_colour) VALUES($1, $2, $3) RETURNING *",
+            [module_name, ca_total, module_colour]
         );
         res.json(newModule.rows[0]);
     } catch (err) {
