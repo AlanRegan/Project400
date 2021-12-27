@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
 import InputTask from "../components/InputTask";
+import ListModules from "../components/ListModules";
 import ListTasks from "../components/ListTasks";
 
-export const Tasks = () => {
+export const Modules = () => {
     return (
         <Fragment>
-            <InputTask></InputTask>
-            <ListTasks></ListTasks>
+            <ListModules></ListModules>
         </Fragment>
     );
 };
-export default Tasks;
+export default Modules;

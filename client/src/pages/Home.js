@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Landing from '../components/PrioritizedTasks'
 
 export const Home = () => {
 return (
-    <div className="container">
+    <Fragment>
     <Landing></Landing>
-	</div>
+    </Fragment>
 );
 };
 export default Home;

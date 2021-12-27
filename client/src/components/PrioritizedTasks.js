@@ -8,8 +8,6 @@ const PrioritizedTasks = () => {
     const [dueSoonTasks, setDueSoonTasks] = useState([]);
     const [allModules, setAllModules] = useState([]);
 
-
-
     const getPrioritizedTasks = async () => {
         try {
             const response = await fetch("http://localhost:5000/tasks/highpriority")
@@ -52,8 +50,8 @@ const PrioritizedTasks = () => {
 
     return (
         <Fragment>
-            <div class="row mt-5">
-                <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-8 mb-3 mt-4">
                     <div class="page-content page-container" id="page-content">
                             <div class="row container d-flex justify-content-center">
                                 <div class=" grid-margin stretch-card">
@@ -91,8 +89,8 @@ const PrioritizedTasks = () => {
                     </div>
 
                 </div>
-                <div class="col-md-4">
-                    <div class="py-5 float-right">
+                <div class="col-md-4 mt-4">
+                    <div class="">
                         <div class="container">
                             <h5 className="text-center">Modules</h5>
                             <div class="row hidden-md-up">

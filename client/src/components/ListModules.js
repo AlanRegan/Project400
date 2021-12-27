@@ -3,14 +3,14 @@ import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader }
 from 'mdb-react-ui-kit';
 import { AiFillFire } from 'react-icons/ai';
 
-const ListTasks = () => {
-    const [tasks, setTasks] = useState([]);
+const ListModules = () => {
+    const [modules, setModules] = useState([]);
 
-    const getTasks = async () => {
+    const getModules = async () => {
         try {
-            const response = await fetch("http://localhost:5000/tasks")
+            const response = await fetch("http://localhost:5000/modules")
             const jsonData = await response.json();
-            setTasks(jsonData);
+            setModules(jsonData);
             for (var i=0;i<jsonData.length;i+=1) {
                 console.log(jsonData[i].outlet_name);
             }
@@ -22,38 +22,30 @@ const ListTasks = () => {
     };
 
     useEffect(() => {
-        getTasks();
+        getModules();
     }, []);
-
-    //console.log(tasks);
-    // console.log("taskies" +tasks[1]?.deadline);
-    // console.log(tasks[0]?.deadline.substring(0,10));
-
-    //const dL = await tasks.deadline.substring(0,10);
-
 
     return ( 
     <Fragment>
             <div className="row">
-                {tasks.map(task => (
-                    <div className="mt-2 col col-md-3" key={task.task_id}>
+                {modules.map(module => (
+                    <div className="mt-2 col col-md-3" key={module.module_id}>
                         <MDBCard shadow='0' border='dark' background='white' style={{ maxWidth: '18rem' }}>
-                            <MDBCardHeader>{task.module_name}</MDBCardHeader>
+                            <MDBCardHeader>{module.module_name}</MDBCardHeader>
                             <MDBCardBody className='text-dark'>
-                               {task.description}
                                 {/* <MDBCardText> */}
                                     <div className="row no-gutters mt-auto mb-2 justify-content-center">
                                         <div className="col-4 text-center">
-                                            <br/>Days Left
-                                            <h5>{task.daysLeft}</h5>
+                                            <br/>CA Total
+                                            <h5>{module.ca_total}</h5>
                                         </div>
                                         <div className="col-4 text-center">
-                                            <br/>CA Value
-                                            <h5>{task.cavalue}%</h5>
+                                            <br/>CA Completed
+                                            {/* <h5>{task.cavalue}%</h5> */}
                                         </div>
                                         <div className="col-4 text-center">
-                                            <br/>Priority
-                                            <h5 className={task.priority}><AiFillFire/></h5>
+                                            <br/>Current Grade
+                                            {/* <h5 className={task.priority}><AiFillFire/></h5> */}
                                             </div>
                                             </div>
                                 {/* </MDBCardText> */}                              
@@ -66,4 +58,4 @@ const ListTasks = () => {
 );
 };
 
-export default ListTasks;
+export default ListModules;

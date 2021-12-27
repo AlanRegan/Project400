@@ -1,72 +1,54 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import { SidebarData } from "./SidebarData";
-import SubMenu from "./SubMenu";
-import { IconContext } from "react-icons/lib";
+import React from 'react';
+import {
+  CDBSidebar,
+  CDBSidebarContent,
+  CDBSidebarFooter,
+  CDBSidebarHeader,
+  CDBSidebarMenu,
+  CDBSidebarMenuItem,
+} from 'cdbreact';
+import { NavLink } from 'react-router-dom';
+import Home from '../pages/Home';
 
-const Nav = styled.div`
-background: #15171c;
-height: 80px;
-display: flex;
-justify-content: flex-start;
-align-items: center;
-`;
-
-const NavIcon = styled(Link)`
-margin-left: 2rem;
-font-size: 2rem;
-height: 80px;
-display: flex;
-justify-content: flex-start;
-align-items: center;
-`;
-
-const SidebarNav = styled.nav`
-background: #15171c;
-width: 250px;
-height: 100vh;
-display: flex;
-justify-content: center;
-position: fixed;
-top: 0;
-left: ${({ sidebar }) => (sidebar ? "0" : "-100%")};
-transition: 350ms;
-z-index: 10;
-`;
-
-const SidebarWrap = styled.div`
-width: 100%;
-`;
 
 const Sidebar = () => {
-const [sidebar, setSidebar] = useState(true);
+  return (
+    <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+      <CDBSidebar textColor="#fff" backgroundColor="#333">
+        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+          <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
+          PrioriTask
+          </a>
+        </CDBSidebarHeader>
 
-const showSidebar = () => setSidebar(!sidebar);
+        <CDBSidebarContent className="sidebar-content">
+          <CDBSidebarMenu>
+            <NavLink exact to="/home" element={<Home/>}>
+              <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/tasks">
+              <CDBSidebarMenuItem icon="table">Tasks</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/modules">
+              <CDBSidebarMenuItem icon="user">Module Overview</CDBSidebarMenuItem>
+            </NavLink>
+          </CDBSidebarMenu>
+        </CDBSidebarContent>
 
-return (
-	<>
-	<IconContext.Provider value={{ color: "#fff" }}>
-		<Nav>
-		<NavIcon to="#">
-			<FaIcons.FaBars onClick={showSidebar} />
-		</NavIcon>
-		</Nav>
-		<SidebarNav sidebar={sidebar}>
-		<SidebarWrap>
-			<NavIcon to="#">
-			<AiIcons.AiOutlineClose onClick={showSidebar} />
-			</NavIcon>
-			{SidebarData.map((item, index) => {
-			return <SubMenu item={item} key={index} />;
-			})}
-		</SidebarWrap>
-		</SidebarNav>
-	</IconContext.Provider>
-	</>
-);
+        <CDBSidebarFooter style={{ textAlign: 'center' }}>
+          <div
+            style={{
+              padding: '20px 5px',
+            }}
+          >
+            Alan Regan
+          </div>
+        </CDBSidebarFooter>
+      </CDBSidebar>
+    </div>
+  );
 };
 
 export default Sidebar;
+
+
