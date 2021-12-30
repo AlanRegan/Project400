@@ -5,7 +5,6 @@ import ListTasks from "../components/ListTasks";
 export const Tasks = () => {
     return (
         <Fragment>
-            <InputTask></InputTask>
             <ListTasks></ListTasks>
         </Fragment>
     );

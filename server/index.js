@@ -77,10 +77,10 @@ app.get("/tasks/:id", async(req, res) => {
 app.put("/tasks/:id", async(req, res) => {
     try {
         const { id } = req.params;
-        const { description } = req.body;
+        const { completeStatus } = req.body;
         const updateTask = await pool.query
-        ("UPDATE task SET description = $1 WHERE task_id = $2",
-        [description, id]
+        ("UPDATE task SET completeStatus = $1 WHERE task_id = $2",
+        [completeStatus, id]
         );
         res.json("Task updated!")
     } catch (err) {
@@ -120,6 +120,22 @@ app.post("/modules", async(req, res) => {
 app.get("/modules", async(req, res) => {
     try {
         const allModules = await pool.query("SELECT * FROM module");
+        res.json(allModules.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// get all modules for overview
+app.get("/modulesoverview", async (req, res) => {
+    try {
+        const allModules = await pool.query(`SELECT m.module_id, module_name, ca_total, 
+        SUM( 
+        CASE WHEN t.completestatus IS NULL 
+        THEN 0 ELSE cavalue END) AS currentlycompleted FROM task AS t
+        FULL OUTER JOIN module AS m
+        ON m.module_id = t.module_id
+        GROUP BY m.module_id`);
         res.json(allModules.rows);
     } catch (err) {
         console.error(err.message);

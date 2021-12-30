@@ -50,7 +50,7 @@ function App() {
       </div>
       <div className="right">
         <Routes>
-      <Route path="/home" element={<Home/>}/>
+      <Route path="/" element={<Home/>}/>
       <Route path="/tasks" element={<Tasks/>} />
       <Route path="/modules" element={<Modules/>} />
       </Routes>

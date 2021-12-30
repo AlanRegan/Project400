@@ -87,7 +87,7 @@ const InputTask = () => {
 
     return (
         <Fragment>
-            <button className="btn btn-success mt-2 me-1" onClick={handleShowTask}>Create Task</button>
+            <button className="btn btn-success mt-2 me-2 ml-3" onClick={handleShowTask}>Create Task</button>
             <button className="btn btn-success mt-2 me-1" onClick={handleShowModule}>Create Module</button>
             {/* task modal */}
             <Modal show={showTask} onHide={handleCloseTask}>

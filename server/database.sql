@@ -14,10 +14,10 @@ CREATE TABLE task(
     priority VARCHAR(8),
     caValue double precision,
     module_id INT,
+    completeStatus VARCHAR(255),
     CONSTRAINT fk_module
       FOREIGN KEY(module_id) 
       REFERENCES module(module_id)
 );
-
 
 
