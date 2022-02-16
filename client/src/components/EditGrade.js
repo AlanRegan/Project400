@@ -1,25 +1,23 @@
 import {React, Fragment, useState } from "react";
-import { AiFillEdit } from 'react-icons/ai';
 
-
-const EditTask = ({ task }) => {
-  // const [task, setTask] = useState(task);
-  const [description, setDescription] = useState(task.description);
+const EditGrade = ({ task }) => {
+  const [grade, setGrade] = useState(task.grade);
 
   //edit grade function
 
-  const updateTask = async e => {
+  const updateGrade = async e => {
     e.preventDefault();
     try {
-      const body = { task };
+      const body = { grade };
       const response = await fetch(
-        `http://localhost:5000/tasks/${task.task_id}`,
+        `http://localhost:5000/grades/${task.task_id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)
         }
         );
+        window.location = "/grades";
     } catch (err) {
       console.error(err.message);
     }
@@ -29,53 +27,38 @@ const EditTask = ({ task }) => {
     <Fragment>
       <button
         type="button"
-        class="bg-transparent border-0 float-right"
+        class="btn btn-warning"
         data-toggle="modal"
         data-target={`#id${task.task_id}`}
       >
-        <AiFillEdit color="blue" size={20} />
+        Edit
       </button>
 
       <div
         class="modal"
         id={`id${task.task_id}`}
-        onClick={() => setDescription(task.description)}
+        onClick={() => setGrade(task.grade)}
       >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Edit Task</h4>
+              <h4 class="modal-title">Edit Grade</h4>
               <button
                 type="button"
                 class="close"
                 data-dismiss="modal"
-                onClick={() => setDescription(task.description)}
+                onClick={() => setGrade(task.grade)}
               >
                 &times;
               </button>
             </div>
 
             <div class="modal-body">
-              <label>Description</label>
               <input
                 type="text"
                 className="form-control"
-                value={task.description}
-                onChange={e => setDescription(e.target.value)}
-              />
-              <label className="pt-2">CA Value</label>
-              <input
-                type="text"
-                className="form-control"
-                value={task.cavalue}
-                onChange={e => setDescription(e.target.value)}
-              />
-              <label className="pt-2">Priority</label>
-              <input
-                type="text"
-                className="form-control"
-                value={task.priority}
-                onChange={e => setDescription(e.target.value)}
+                value={grade}
+                onChange={e => setGrade(e.target.value)}
               />
             </div>
 
@@ -84,16 +67,15 @@ const EditTask = ({ task }) => {
                 type="button"
                 class="btn btn-warning"
                 data-dismiss="modal"
-                onClick={e => updateTask(e)}
+                onClick={e => updateGrade(e)}
               >
-                Confirm
+                Edit
               </button>
-
               <button
                 type="button"
                 class="btn btn-danger"
                 data-dismiss="modal"
-                onClick={() => setDescription(task.description)}
+                onClick={() => setGrade(task.grade)}
               >
                 Close
               </button>
@@ -105,4 +87,4 @@ const EditTask = ({ task }) => {
   );
 };
 
-export default EditTask;
+export default EditGrade;

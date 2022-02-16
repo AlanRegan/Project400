@@ -63,10 +63,11 @@ const InputTask = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
             });
-            window.location = "/";
+            window.location = "/tasks";
         } catch (err) {
             console.log(err.message)
         }
+        getModules();
     };
 
     // task post call
@@ -79,7 +80,7 @@ const InputTask = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
             });
-            window.location = "/";
+            window.location = "/tasks";
         } catch (err) {
             console.log(err.message)
         }

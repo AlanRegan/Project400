@@ -39,23 +39,26 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Tasks from "./pages/Tasks";
 import Home from "./pages/Home";
 import Modules from "./pages/Modules";
+import Grades from "./pages/Grades";
 import { Fragment } from 'react';
 
 function App() {
   return (
     <div className="App">
       <Router>
-      <div className="left" style={{float: 'left'}}>
-      <Sidebar />
-      </div>
-      <div className="right">
-        <Routes>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/tasks" element={<Tasks/>} />
-      <Route path="/modules" element={<Modules/>} />
-      </Routes>
-    </div>
-    </Router>
+        <div className="left" style={{ float: 'left' }}>
+          <Sidebar />
+        </div>
+        <div className="right">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/modules" element={<Modules />} />
+            <Route path="/grades" element={<Grades />} />
+
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 }

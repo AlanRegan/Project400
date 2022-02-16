@@ -20,20 +20,22 @@ const Sidebar = () => {
           PrioriTask
           </a>
         </CDBSidebarHeader>
-
-        <CDBSidebarContent className="sidebar-content">
-          <CDBSidebarMenu>
-            <NavLink exact to="/" element={<Home/>}>
-              <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/tasks">
-              <CDBSidebarMenuItem icon="table">Tasks</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/modules">
-              <CDBSidebarMenuItem icon="user">Module Overview</CDBSidebarMenuItem>
-            </NavLink>
-          </CDBSidebarMenu>
-        </CDBSidebarContent>
+              <CDBSidebarContent className="sidebar-content">
+                  <CDBSidebarMenu>
+                      <NavLink exact to="/" element={<Home />}>
+                          <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
+                      </NavLink>
+                      <NavLink exact to="/tasks">
+                          <CDBSidebarMenuItem icon="table">Tasks</CDBSidebarMenuItem>
+                      </NavLink>
+                      <NavLink exact to="/modules">
+                          <CDBSidebarMenuItem icon="user">Module Overview</CDBSidebarMenuItem>
+                      </NavLink>
+                      <NavLink exact to="/grades">
+                          <CDBSidebarMenuItem icon="user">Grades</CDBSidebarMenuItem>
+                      </NavLink>
+                  </CDBSidebarMenu>
+              </CDBSidebarContent>
 
         <CDBSidebarFooter style={{ textAlign: 'center' }}>
           <div

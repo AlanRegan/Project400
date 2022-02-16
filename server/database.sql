@@ -15,6 +15,7 @@ CREATE TABLE task(
     caValue double precision,
     module_id INT,
     completeStatus VARCHAR(255),
+    grade double precision,
     CONSTRAINT fk_module
       FOREIGN KEY(module_id) 
       REFERENCES module(module_id)

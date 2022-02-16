@@ -5,6 +5,7 @@ import { AiFillFire } from 'react-icons/ai';
 
 const ListModules = () => {
     const [modules, setModules] = useState([]);
+    const [moduleTasks, setModuleTasks] = useState([]);
 
     const getModules = async () => {
         try {
@@ -14,15 +15,28 @@ const ListModules = () => {
             for (var i=0;i<jsonData.length;i+=1) {
                 console.log(jsonData[i].outlet_name);
             }
-            //console.log(jsonData);
-
         } catch (err) {
             console.error(err.message)
         }
     };
 
+        // task status put call
+        const getModuleTasks = async (e) => {
+            e.preventDefault();
+            console.log(e.currentTarget.value);
+            try {
+                const id = e.currentTarget.value;
+                const response = await fetch(`http://localhost:5000/modules/${id}`)
+                const jsonData = await response.json();
+                setModuleTasks(jsonData);
+            } catch (err) {
+                console.log(err.message)
+            }
+        };
+
     useEffect(() => {
         getModules();
+        getModuleTasks();
     }, []);
 
     return ( 
@@ -30,27 +44,28 @@ const ListModules = () => {
             <div className="row">
                 {modules.map(module => (
                     <div className="mt-2 col col-md-4" key={module.module_id}>
-                        <MDBCard shadow='0' border='dark' background='white' style={{  }}>
+                                    <button className="bg-transparent border-0" value={module.module_id} onClick={getModuleTasks}>
+
+                        <MDBCard shadow='0' border='dark' background='white'>
                             <MDBCardHeader>{module.module_name}</MDBCardHeader>
                             <MDBCardBody className='text-dark'>
-                                {/* <MDBCardText> */}
-                                    <div className="row no-gutters mt-auto mb-2 justify-content-center">
-                                        <div className="col-3 text-center">
+                                    <div className="row mt-auto mb-2 justify-content-center">
+                                        <div className="col-12 text-center">
                                             <br/>CA Total
-                                            <h5>{module.ca_total}</h5>
+                                            <h5>{module.ca_total}%</h5>
                                         </div>
-                                        <div className="col-5 text-center">
-                                            <br/>CA Completed
+                                        <div className="col-6 text-center">
+                                            <br/>Completed
                                             <h5>{module.currentlycompleted}%</h5>
                                         </div>
-                                        <div className="col-4 text-center">
+                                        <div className="col-6 text-center">
                                             <br/>Current Grade
-                                            {/* <h5 className={task.priority}><AiFillFire/></h5> */}
+                                            <h5>{module.grade}%</h5>
                                             </div>
                                             </div>
-                                {/* </MDBCardText> */}                              
                             </MDBCardBody>
                         </MDBCard>
+                            </button>
                     </div>
                 ))}
             </div>

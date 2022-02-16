@@ -5,6 +5,7 @@ import { AiFillFire, AiFillCheckCircle } from 'react-icons/ai';
 import { CDBNavItem } from "cdbreact";
 import toast, { Toaster } from 'react-hot-toast';
 import InputTask from "../components/InputTask";
+import EditTask from "../components/EditTask";
 
 
 const ListTasks = ({ task }) => {
@@ -38,8 +39,6 @@ const ListTasks = ({ task }) => {
         setfilteredTasks(ThisWeek);
     }
 
-
-
     const getTasks = async () => {
         try {
             const response = await fetch("http://localhost:5000/tasks")
@@ -65,14 +64,15 @@ const ListTasks = ({ task }) => {
         try {
             const id = e.currentTarget.value;
             const body = { completeStatus: 'Complete' };
-            const response = await fetch(`http://localhost:5000/tasks/${id}`, {
+            const response = await fetch(`http://localhost:5000/completetask/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)
             });
             toast.success('Task Completed! Well done!', {
                 position: "top-center"
-            })
+            });
+            getTasks();
         } catch (err) {
             console.log(err.message)
         }
@@ -103,7 +103,11 @@ const ListTasks = ({ task }) => {
                 {filteredTasks && filteredTasks.map((task) => (
                     <div className="mt-2 col col-md-3" key={task.task_id}>
                         <MDBCard shadow='0' border='dark' background='white' style={{ maxWidth: '18rem' }}>
-                            <MDBCardHeader>{task.module_name} <button className="bg-transparent border-0 float-right" value={task.task_id} onClick={completeTask}><AiFillCheckCircle /></button></MDBCardHeader>
+                            <MDBCardHeader>{task.module_name} 
+                            <button className="bg-transparent border-0 float-right ms-2" value={task.task_id} onClick={completeTask}><AiFillCheckCircle color="green" size={20} /></button>
+                            <EditTask task={task} />
+
+                            </MDBCardHeader>
                             <MDBCardBody className='text-dark'>
                                 {task.description}
                                 {/* <MDBCardText> */}
@@ -118,7 +122,9 @@ const ListTasks = ({ task }) => {
                                     </div>
                                     <div className="col-4 text-center">
                                         <br />Priority
-                                        <h5 className={task.priority}><AiFillFire /></h5>
+                                        <h5 className={task.priority}><AiFillFire /></h5>   
+    
+
                                     </div>
                                 </div>
                                 {/* </MDBCardText> */}
