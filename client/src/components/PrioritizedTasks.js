@@ -2,17 +2,53 @@ import { React, Fragment, useEffect, useState } from "react";
 import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader }
     from 'mdb-react-ui-kit';
 import { AiFillFire } from 'react-icons/ai';
+import { toast } from "react-toastify";
 
-const PrioritizedTasks = () => {
+
+const PrioritizedTasks = (setAuth) => {
     const [highPriorityTasks, setHighPriorityTasks] = useState([]);
     const [dueSoonTasks, setDueSoonTasks] = useState([]);
     const [allModules, setAllModules] = useState([]);
 
+    const [name, setName] = useState("");
+
+    const logout = async e => {
+        e.preventDefault();
+        try {
+          localStorage.removeItem("jwt_token");
+          setAuth(false);
+          toast.success("Logout successfully");
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
+
+      const getProfile = async () => {
+        try {
+          const res = await fetch("http://localhost:5000/dash", {
+            method: "GET",
+            headers: { jwt_token: localStorage.jwt_token }
+          });
+    
+          const parseData = await res.json();
+          setName(parseData.name);
+        } catch (err) {
+          console.error("o");
+        }
+      };
+    
+      useEffect(() => {
+        getProfile();
+      }, []);
+
     const getPrioritizedTasks = async () => {
         try {
-            const response = await fetch("http://localhost:5000/tasks/highpriority")
+            const response = await fetch("http://localhost:5000/tasks/highpriority",
+            { headers: { jwt_token: localStorage.jwt_token }
+        });
             const jsonData = await response.json();
             setHighPriorityTasks(jsonData);
+            console.log(jsonData);
         } catch (err) {
             console.error(err.message)
         }
@@ -20,7 +56,9 @@ const PrioritizedTasks = () => {
 
     const getTasksDueSoon = async () => {
         try {
-            const response = await fetch("http://localhost:5000/tasks")
+            const response = await fetch("http://localhost:5000/tasks",
+            { headers: { jwt_token: localStorage.jwt_token }
+        });
             const jsonData = await response.json();
             setDueSoonTasks(jsonData);
             var result = jsonData.filter(obj => obj.daysLeft > 0 && obj.daysLeft <= 7);
@@ -33,7 +71,9 @@ const PrioritizedTasks = () => {
 
     const getModules = async () => {
         try {
-            const response = await fetch("http://localhost:5000/modules")
+            const response = await fetch("http://localhost:5000/modules",
+            { headers: { jwt_token: localStorage.jwt_token }
+        });
             const jsonData = await response.json();
             setAllModules(jsonData);
         } catch (err) {
@@ -49,7 +89,6 @@ const PrioritizedTasks = () => {
     }, []);
 
     return (
-        <Fragment>
             <div class="row">
                 <div class="col-md-8 mb-3 mt-4">
                     <div class="page-content page-container" id="page-content">
@@ -146,7 +185,6 @@ const PrioritizedTasks = () => {
                     </div>
                 </div>
             </div>
-        </Fragment>
     );
 };
 

@@ -8,12 +8,45 @@ import InputTask from "../components/InputTask";
 import Tasks from "../pages/Tasks";
 import EditGrade from "./EditGrade";
 
-const ListGrades = () => {
+const ListGrades = (setAuth) => {
     const [completedTasks, setCompletedTasks] = useState([]);
+
+    const [name, setName] = useState("");
+
+    const logout = async e => {
+        e.preventDefault();
+        try {
+          localStorage.removeItem("jwt_token");
+          setAuth(false);
+          toast.success("Logout successfully");
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
+
+      const getProfile = async () => {
+        try {
+          const res = await fetch("http://localhost:5000/dash", {
+            method: "GET",
+            headers: { jwt_token: localStorage.jwt_token }
+          });
+    
+          const parseData = await res.json();
+          setName(parseData.name);
+        } catch (err) {
+          console.error("o");
+        }
+      };
+    
+      useEffect(() => {
+        getProfile();
+      }, []);
 
     const getTasks = async () => {
         try {
-            const response = await fetch("http://localhost:5000/grades")
+            const response = await fetch("http://localhost:5000/grades",
+            { headers: { jwt_token: localStorage.jwt_token }
+        });
             const jsonData = await response.json();
             setCompletedTasks(jsonData);
         } catch (err) {
@@ -27,7 +60,6 @@ const ListGrades = () => {
     
     return (
         <Fragment>
-            {" "}
             <div class="row">
                 <div class="col-md-8 mb-3 mt-4">
                     <div class="page-content page-container" id="page-content">

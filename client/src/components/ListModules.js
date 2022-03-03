@@ -2,14 +2,48 @@ import { React, Fragment, useEffect, useState } from "react";
 import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader } 
 from 'mdb-react-ui-kit';
 import { AiFillFire } from 'react-icons/ai';
+import { toast } from "react-toastify";
 
-const ListModules = () => {
+const ListModules = (setAuth) => {
     const [modules, setModules] = useState([]);
     const [moduleTasks, setModuleTasks] = useState([]);
 
+    const [name, setName] = useState("");
+
+    const logout = async e => {
+        e.preventDefault();
+        try {
+          localStorage.removeItem("jwt_token");
+          setAuth(false);
+          toast.success("Logout successfully");
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
+
+      const getProfile = async () => {
+        try {
+          const res = await fetch("http://localhost:5000/dash", {
+            method: "GET",
+            headers: { jwt_token: localStorage.jwt_token }
+          });
+    
+          const parseData = await res.json();
+          setName(parseData.name);
+        } catch (err) {
+          console.error("o");
+        }
+      };
+    
+      useEffect(() => {
+        getProfile();
+      }, []);
+
     const getModules = async () => {
         try {
-            const response = await fetch("http://localhost:5000/modulesoverview")
+            const response = await fetch("http://localhost:5000/modules/modulesoverview",
+            { headers: { jwt_token: localStorage.jwt_token }
+        });
             const jsonData = await response.json();
             setModules(jsonData);
             for (var i=0;i<jsonData.length;i+=1) {
@@ -26,7 +60,9 @@ const ListModules = () => {
             console.log(e.currentTarget.value);
             try {
                 const id = e.currentTarget.value;
-                const response = await fetch(`http://localhost:5000/modules/${id}`)
+                const response = await fetch(`http://localhost:5000/modules/${id}`,
+                { headers: { jwt_token: localStorage.jwt_token }
+            });
                 const jsonData = await response.json();
                 setModuleTasks(jsonData);
             } catch (err) {
