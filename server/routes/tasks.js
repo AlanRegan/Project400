@@ -10,9 +10,10 @@ const authorize = require("../middleware/jwtAuthorization");
 app.post("/", authorize, async(req, res) => {
     try{
         const { description, deadline, priority, caValue, module_id } = req.body;
+        const points = caValue / 10;
         const newTask = await pool.query
-            ("INSERT INTO task (user_id, description, deadline, priority, caValue, module_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-            [req.user.id, description, deadline, priority, caValue, module_id]
+            ("INSERT INTO task (user_id, description, deadline, priority, caValue, module_id, points) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+            [req.user.id, description, deadline, priority, caValue, module_id, points]
         );
         res.json(newTask.rows[0]);
     } catch (err) {
@@ -25,6 +26,27 @@ app.get("/", authorize, async(req, res) => {
     try {
         const allTasks = await pool.query
         ("SELECT * FROM task as t INNER JOIN module as m on t.module_id = m.module_id where t.user_id = $1 AND completestatus is null"
+        ,[req.user.id]
+        );
+        for (var i = 0; i < allTasks.rows.length; i++) {
+        var row = allTasks.rows[i];
+        var todaysDate = new Date()
+        var deadlineCorrectFormat = new Date(row.deadline);
+        var daysLeft = (deadlineCorrectFormat - todaysDate)/(1000*3600*24)
+        console.log(daysLeft);
+        row.daysLeft = daysLeft.toFixed(0);;      
+    }
+        res.json(allTasks.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// get all tasks due soon
+app.get("/soon", authorize, async(req, res) => {
+    try {
+        const allTasks = await pool.query
+        ("SELECT * FROM task as t INNER JOIN module as m on t.module_id = m.module_id where t.user_id = $1 AND completestatus is null order by deadline"
         ,[req.user.id]
         );
         for (var i = 0; i < allTasks.rows.length; i++) {

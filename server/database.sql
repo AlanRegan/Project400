@@ -35,4 +35,23 @@ CREATE TABLE task(
       REFERENCES module(module_id)
 );
 
+CREATE TABLE events(
+   event_id SERIAL PRIMARY KEY,
+   user_id UUID,
+   task_id INT,
+   description VARCHAR(255),
+   start_date timestamp,
+   end_date timestamp,
+   FOREIGN KEY (user_id) REFERENCES users(id),
+   FOREIGN KEY (task_id) REFERENCES task(task_id)
+);
+
+CREATE TABLE friends(
+   relationship_id SERIAL PRIMARY KEY,
+   user_id UUID,
+   friend_id UUID,
+   FOREIGN KEY (user_id) REFERENCES users(id),
+   FOREIGN KEY (friend_id) REFERENCES users(id)
+);
+
 

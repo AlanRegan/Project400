@@ -8,6 +8,10 @@
   text-align: center;
 } */
 
+.wrapper {
+  height: 100vh;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -71,6 +75,21 @@ color: red;
      background-color: rgb(55, 133, 55) !important;
      /* color: white !important; */
    }
+
+   .Red {
+    background-color: rgb(133, 55, 55) !important;
+    /* color: white !important; */
+  }
+
+  .Blue {
+    background-color: rgb(55, 60, 133) !important;
+    /* color: white !important; */
+  }
+
+  .Yellow {
+    background-color: rgb(225, 228, 72) !important;
+    /* color: white !important; */
+  }
 
    body {
     background-color: #f9f9fa

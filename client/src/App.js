@@ -10,6 +10,7 @@ import Tasks from "./pages/Tasks";
 import Home from "./pages/Home";
 import Modules from "./pages/Modules";
 import Grades from "./components/ListGrades";
+import Schedule from "./components/Schedule";
 import Landing from './components/Landing';
 //import Dashboard from './components/Dashboard';
 import { Fragment } from 'react';
@@ -22,6 +23,9 @@ import { toast } from "react-toastify";
 import Dashboard from './components/Dashboard';
 import ListTasks from './components/ListTasks';
 import PrioritizedTasks from './components/PrioritizedTasks';
+import Scheduler from './components/Test';
+
+
 
 toast.configure();
 
@@ -57,7 +61,7 @@ function App() {
     <div className="App">
       <Router>
           <div className="left" style={{ float: 'left' }}>
-          <Sidebar />
+          <Sidebar setAuth={setAuth} />
           </div>
           <div className='right'>
           <Switch>
@@ -127,7 +131,9 @@ function App() {
                     )
                   }
                   />
-          
+                  <Route exact path="/schedule">
+        <Scheduler />
+        </Route>
           </Switch>
           </div>
       </Router>
