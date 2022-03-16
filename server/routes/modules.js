@@ -31,7 +31,7 @@ app.get("/", authorize, async(req, res) => {
 // get all modules for overview COME BACK TO THIS
 app.get("/modulesoverview", authorize, async (req, res) => {
     try {
-        const allModules = await pool.query(`SELECT m.module_id, module_name, ca_total, 
+        const allModules = await pool.query(`SELECT m.module_id, module_name, ca_total, module_colour,
         SUM( 
         CASE WHEN t.completestatus IS NULL 
         THEN 0 ELSE cavalue END) AS currentlycompleted,

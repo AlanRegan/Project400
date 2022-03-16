@@ -46,6 +46,7 @@ const ListModules = (setAuth) => {
         });
             const jsonData = await response.json();
             setModules(jsonData);
+            console.log(jsonData)
             for (var i=0;i<jsonData.length;i+=1) {
                 console.log(jsonData[i].outlet_name);
             }
@@ -80,9 +81,9 @@ const ListModules = (setAuth) => {
             <div className="row">
                 {modules.map(module => (
                     <div className="mt-2 col col-md-4" key={module.module_id}>
-                                    <button className="bg-transparent border-0" value={module.module_id} onClick={getModuleTasks}>
+                                    <button className={`card rounded mb-2 border ${module.module_colour}`} value={module.module_id} onClick={getModuleTasks}>
 
-                        <MDBCard shadow='0' border='dark' background='white'>
+                        <MDBCard className={`card rounded mb-2 border ${module.module_colour}`} background='white'>
                             <MDBCardHeader>{module.module_name}</MDBCardHeader>
                             <MDBCardBody className='text-dark'>
                                     <div className="row mt-auto mb-2 justify-content-center">

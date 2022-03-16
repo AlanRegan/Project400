@@ -1,13 +1,13 @@
 import { React, Fragment, useEffect, useState } from "react";
-import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader } 
-from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader }
+    from 'mdb-react-ui-kit';
 import { AiFillFire, AiFillCheckCircle } from 'react-icons/ai';
 import { CDBNavItem } from "cdbreact";
 import toast, { Toaster } from 'react-hot-toast';
 import InputTask from "../components/InputTask";
 import EditTask from "../components/EditTask";
 
-const ListTasks = ({ task, setAuth }) => {
+const ListTasks = ({ task }) => {
     const [tasks, setTasks] = useState([]);
     // for task complete status
     const [completeStatus, setCompleteStatus] = useState("");
@@ -23,34 +23,23 @@ const ListTasks = ({ task, setAuth }) => {
 
     const [name, setName] = useState("");
 
-    const logout = async e => {
-        e.preventDefault();
+    const getProfile = async () => {
         try {
-          localStorage.removeItem("jwt_token");
-          setAuth(false);
-          toast.success("Logout successfully");
-        } catch (err) {
-          console.error(err.message);
-        }
-      };
+            const res = await fetch("http://localhost:5000/dash", {
+                method: "GET",
+                headers: { jwt_token: localStorage.jwt_token }
+            });
 
-      const getProfile = async () => {
-        try {
-          const res = await fetch("http://localhost:5000/dash", {
-            method: "GET",
-            headers: { jwt_token: localStorage.jwt_token }
-          });
-    
-          const parseData = await res.json();
-          setName(parseData.name);
+            const parseData = await res.json();
+            setName(parseData.name);
         } catch (err) {
-          console.error("o");
+            console.error("o");
         }
-      };
-    
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         getProfile();
-      }, []);
+    }, []);
 
     function showHighPriority() {
         setfilteredTasks(HighPriority);
@@ -72,12 +61,13 @@ const ListTasks = ({ task, setAuth }) => {
     const getTasks = async () => {
         try {
             const response = await fetch("http://localhost:5000/tasks",
-            { headers: { jwt_token: localStorage.jwt_token }
-            });
+                {
+                    headers: { jwt_token: localStorage.jwt_token }
+                });
             const jsonData = await response.json();
             setTasks(jsonData);
             setfilteredTasks(jsonData);
-            for (var i=0;i<jsonData.length;i+=1) {
+            for (var i = 0; i < jsonData.length; i += 1) {
                 console.log(jsonData[i].outlet_name);
             }
         } catch (err) {
@@ -88,7 +78,7 @@ const ListTasks = ({ task, setAuth }) => {
     useEffect(() => {
         getTasks();
     }, []);
-    
+
     // task status put call
     const completeTask = async (e) => {
         e.preventDefault();
@@ -112,53 +102,49 @@ const ListTasks = ({ task, setAuth }) => {
 
     return (
         <div>
-        <InputTask></InputTask>
-        <button onClick={e => logout(e)} className="btn btn-primary" style={{position: "absolute",right: "8rem"}}>
-          Logout
-        </button>
+            <InputTask></InputTask>
 
+            <button className="btn bg-transparent mt-2 High" onClick={() => showHighPriority()}>
+                <h5 className="High"><AiFillFire /></h5>
+            </button>
+            <button className="btn bg-transparent mt-2 Medium" onClick={() => showMediumPriority()}>
+                <h5 className="Medium"><AiFillFire /></h5>
+            </button>
+            <button className="btn bg-transparent mt-2 Low" onClick={() => showLowPriority()}>
+                <h5 className="Low"><AiFillFire /></h5>
+            </button>
 
-                <button className="btn bg-transparent mt-2 High" onClick={() => showHighPriority()}>
-                    <h5 className="High"><AiFillFire /></h5>
-                </button>
-                <button className="btn bg-transparent mt-2 Medium" onClick={() => showMediumPriority()}>
-                    <h5 className="Medium"><AiFillFire /></h5>
-                </button>
-                <button className="btn bg-transparent mt-2 Low" onClick={() => showLowPriority()}>
-                    <h5 className="Low"><AiFillFire /></h5>
-                </button>
-
-                <button className="btn bg-transparent mt-2 Low" onClick={() => showThisWeek()}>
-                    This Week
-                </button>     
-                <button className="btn bg-transparent mt-2 Low" onClick={() => showThisMonth()}>
-                    This Month
-                </button>
+            <button className="btn bg-transparent mt-2 Low" onClick={() => showThisWeek()}>
+                This Week
+            </button>
+            <button className="btn bg-transparent mt-2 Low" onClick={() => showThisMonth()}>
+                This Month
+            </button>
 
             <div className="row">
                 {filteredTasks && filteredTasks.map((task) => (
-                    <div className="mt-2 col col-md-3" key={task.task_id}>
-                        <MDBCard shadow='0' border='dark' background='white' style={{ maxWidth: '18rem' }}>
-                            <MDBCardHeader>{task.module_name} 
-                            <button className="bg-transparent border-0 float-right ms-2" value={task.task_id} onClick={completeTask}><AiFillCheckCircle color="green" size={20} /></button>
-                            <EditTask task={task} />
+                    <div className="mt-2 col col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12" key={task.task_id}>
+                        <MDBCard className={`card rounded mb-2 border ${task.module_colour}`} shadow='1' background='white' style={{ maxWidth: '18rem' }}>
+                            <MDBCardHeader border="1">{task.module_name}
+                                <button className="bg-transparent border-0 float-right ms-2" value={task.task_id} onClick={completeTask}><AiFillCheckCircle color="green" size={20} /></button>
+                                <EditTask task={task} />
 
                             </MDBCardHeader>
                             <MDBCardBody className='text-dark'>
                                 {task.description}
                                 {/* <MDBCardText> */}
                                 <div className="row no-gutters mt-auto mb-2 justify-content-center">
-                                    <div className="col-4 text-center">
+                                    <div className="col-4 col-md-4 text-center">
                                         <br />Days Left
                                         <h5>{task.daysLeft}</h5>
                                     </div>
-                                    <div className="col-4 text-center">
+                                    <div className="col-4 col-md-4  text-center">
                                         <br />CA Value
                                         <h5>{task.cavalue}%</h5>
                                     </div>
-                                    <div className="col-4 text-center">
+                                    <div className="col-4 col-md-4  text-center">
                                         <br />Priority
-                                        <h5 className={task.priority}><AiFillFire /></h5>   
+                                        <h5 className={task.priority}><AiFillFire /></h5>
                                     </div>
                                 </div>
                                 {/* </MDBCardText> */}
@@ -166,11 +152,11 @@ const ListTasks = ({ task, setAuth }) => {
                         </MDBCard>
                     </div>
                 ))
-            }
+                }
             </div>
             <div><Toaster /></div>
 
-            </div>
+        </div>
     );
 };
 
