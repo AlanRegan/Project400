@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
+import { baseURL } from "../api/api-routes";
 
 const InputTask = () => {
     // task
@@ -35,7 +36,7 @@ const InputTask = () => {
     // get modules for task module name dropbox
     const getModules = async () => {
         try {
-            const response = await fetch("http://localhost:5000/modules",
+            const response = await fetch( baseURL + "/modules",
             { headers: { jwt_token: localStorage.jwt_token }
         });
             const jsonData = await response.json();
@@ -63,12 +64,12 @@ const InputTask = () => {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.jwt_token);
-            const response = await fetch("http://localhost:5000/modules", {
+            const response = await fetch( baseURL + "/modules", {
                 method: "POST",
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
-            window.location = "/tasks";
+            window.location = baseURL + "/tasks";
         } catch (err) {
             console.log(err.message)
         }
@@ -83,12 +84,12 @@ const InputTask = () => {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.jwt_token);
-            const response = await fetch("http://localhost:5000/tasks", {
+            const response = await fetch( baseURL + "/tasks", {
                 method: "POST",
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
-            window.location = "/tasks";
+            window.location = baseURL + "/tasks";
         } catch (err) {
             console.log(err.message)
         }

@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
+import { baseURL } from "../api/api-routes";
 
 const InputEvent = () => {
     // Event
@@ -28,7 +29,7 @@ const InputEvent = () => {
     // get modules for task module name dropbox
     const getTasks = async () => {
         try {
-            const response = await fetch("http://localhost:5000/tasks",
+            const response = await fetch( baseURL + "/tasks",
             { headers: { jwt_token: localStorage.jwt_token }
         });
             const jsonData = await response.json();
@@ -56,12 +57,12 @@ const InputEvent = () => {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.jwt_token);
-            const response = await fetch("http://localhost:5000/events", {
+            const response = await fetch( baseURL + "/events", {
                 method: "POST",
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
-            window.location = "/tasks";
+            window.location = baseURL + "/tasks";
         } catch (err) {
             console.log(err.message)
         }

@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { baseURL } from "../api/api-routes";
 
 const Login = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
@@ -18,7 +19,7 @@ const Login = ({ setAuth }) => {
     try {
       const body = { email, password };
       const response = await fetch(
-        "http://localhost:5000/user/login",
+        baseURL + "/user/login",
         {
           method: "POST",
           headers: {

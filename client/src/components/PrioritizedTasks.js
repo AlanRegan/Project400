@@ -6,7 +6,7 @@ import { IoPersonAdd, IoTerminalSharp } from 'react-icons/io5';
 import { toast } from "react-toastify";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-
+import { baseURL } from "../api/api-routes";
 
 const PrioritizedTasks = (setAuth) => {
     const [highPriorityTasks, setHighPriorityTasks] = useState([]);
@@ -36,7 +36,7 @@ const PrioritizedTasks = (setAuth) => {
 
       const getProfile = async () => {
         try {
-          const res = await fetch("http://localhost:5000/dash", {
+          const res = await fetch( baseURL + "/dash", {
             method: "GET",
             headers: { jwt_token: localStorage.jwt_token }
           });
@@ -54,7 +54,7 @@ const PrioritizedTasks = (setAuth) => {
 
     const getPrioritizedTasks = async () => {
         try {
-            const response = await fetch("http://localhost:5000/tasks/highpriority",
+            const response = await fetch( baseURL  + "/tasks/highpriority",
             { headers: { jwt_token: localStorage.jwt_token }
         });
             const jsonData = await response.json();
@@ -67,7 +67,7 @@ const PrioritizedTasks = (setAuth) => {
 
     const getTasksDueSoon = async () => {
         try {
-            const response = await fetch("http://localhost:5000/tasks/soon",
+            const response = await fetch( baseURL + "/tasks/soon",
             { headers: { jwt_token: localStorage.jwt_token }
         });
             const jsonData = await response.json();
@@ -84,7 +84,7 @@ const PrioritizedTasks = (setAuth) => {
 
     const getLeaderboard = async () => {
         try {
-            const response = await fetch("http://localhost:5000/friends",
+            const response = await fetch( baseURL + "/friends",
             { headers: { jwt_token: localStorage.jwt_token }
         });
             const jsonData = await response.json();
@@ -101,7 +101,7 @@ const PrioritizedTasks = (setAuth) => {
 
     const getModules = async () => {
         try {
-            const response = await fetch("http://localhost:5000/modules",
+            const response = await fetch( baseURL + "/modules",
             { headers: { jwt_token: localStorage.jwt_token }
         });
             const jsonData = await response.json();
@@ -121,7 +121,7 @@ const PrioritizedTasks = (setAuth) => {
                 const myHeaders = new Headers();
                 myHeaders.append("Content-Type", "application/json");
                 myHeaders.append("jwt_token", localStorage.jwt_token);
-                const response = await fetch("http://localhost:5000/friends", {
+                const response = await fetch( baseURL + "/friends", {
                     method: "POST",
                     headers: myHeaders,
                     body: JSON.stringify(body)

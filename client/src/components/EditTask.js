@@ -1,6 +1,7 @@
 import {React, Fragment, useState } from "react";
 import { AiFillEdit } from 'react-icons/ai';
 import Form from "react-bootstrap/Form";
+import { baseURL } from "../api/api-routes";
 
 const EditTask = ({ task }) => {
   // const [task, setTask] = useState(task);
@@ -15,8 +16,8 @@ const EditTask = ({ task }) => {
     e.preventDefault();
     try {
       const body = { task };
-      const response = await fetch(
-        `http://localhost:5000/tasks/${task.task_id}`,
+      const response = await fetch( baseURL +
+        `/tasks/${task.task_id}`,
         {
           method: "PUT",
           headers: { jwt_token: localStorage.jwt_token },

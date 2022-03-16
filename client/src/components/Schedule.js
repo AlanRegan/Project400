@@ -2,6 +2,7 @@ import { React, Fragment, useEffect, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { baseURL } from "../api/api-routes";
 
 moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
@@ -14,7 +15,7 @@ const Schedule = ({ setAuth }) => {
 
     const getProfile = async () => {
         try {
-          const res = await fetch("http://localhost:5000/dash", {
+          const res = await fetch( baseURL + "/dash", {
             method: "GET",
             headers: { jwt_token: localStorage.jwt_token }
           });
@@ -41,7 +42,7 @@ const Schedule = ({ setAuth }) => {
 
   const getEvents = async () => {
     try {
-        const response = await fetch("http://localhost:5000/events",
+        const response = await fetch( baseURL + "/events",
         { headers: { jwt_token: localStorage.jwt_token }
         });
         let jsonData = await response.json();

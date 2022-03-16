@@ -16,6 +16,7 @@ import {
 } from '@material-ui/pickers';
 // pick a date util library
 import MomentUtils from '@date-io/moment';
+import { baseURL } from "../api/api-routes";
 
 
 const DnDCalendar = withDragAndDrop(Calendar);
@@ -37,7 +38,7 @@ const Scheduler = ({setAuth}) => {
 
     const getProfile = async () => {
         try {
-          const res = await fetch("http://localhost:5000/dash", {
+          const res = await fetch( baseURL + "/dash", {
             method: "GET",
             headers: { jwt_token: localStorage.jwt_token }
           });
@@ -73,7 +74,7 @@ const Scheduler = ({setAuth}) => {
     
     const getEvents = async () => {
         try {
-            const response = await fetch("http://localhost:5000/events",
+            const response = await fetch( baseURL + "/events",
                 {
                     headers: { jwt_token: localStorage.jwt_token }
                 });
@@ -115,7 +116,7 @@ const Scheduler = ({setAuth}) => {
     
     const getTasks = async () => {
         try {
-            const response = await fetch("http://localhost:5000/tasks",
+            const response = await fetch( baseURL + "/tasks",
             { headers: { jwt_token: localStorage.jwt_token }
             });
             const jsonData = await response.json();

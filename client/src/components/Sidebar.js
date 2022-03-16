@@ -8,8 +8,9 @@ import {
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 import Home from '../pages/Home';
-import { React, Fragment, useEffect, useState } from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import { React, useEffect, useState } from "react";
+import toast from 'react-hot-toast';
+import { baseURL } from '../api/api-routes';
 
 
 const Sidebar = ({ setAuth }) => {
@@ -28,7 +29,7 @@ const Sidebar = ({ setAuth }) => {
 
     const getProfile = async () => {
       try {
-        const res = await fetch("http://localhost:5000/dash", {
+        const res = await fetch( baseURL + "/dash", {
           method: "GET",
           headers: { jwt_token: localStorage.jwt_token }
         });

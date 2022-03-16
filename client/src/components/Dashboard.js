@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ListTasks from "./ListTasks";
+import {baseURL} from '../api/api-routes'
 
 //components
 
@@ -41,7 +42,7 @@ const Dashboard = ({ setAuth }) => {
 
   const getProfile = async () => {
     try {
-      const res = await fetch("http://localhost:5000/dash", {
+      const res = await fetch( baseURL +"/dash", {
         method: "GET",
         headers: { jwt_token: localStorage.jwt_token }
       });

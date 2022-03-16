@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import InputTask from "../components/InputTask";
 import Tasks from "../pages/Tasks";
 import EditGrade from "./EditGrade";
+import { baseURL } from "../api/api-routes";
 
 const ListGrades = (setAuth) => {
     const [completedTasks, setCompletedTasks] = useState([]);
@@ -26,7 +27,7 @@ const ListGrades = (setAuth) => {
 
       const getProfile = async () => {
         try {
-          const res = await fetch("http://localhost:5000/dash", {
+          const res = await fetch( baseURL + "/dash", {
             method: "GET",
             headers: { jwt_token: localStorage.jwt_token }
           });
@@ -44,7 +45,7 @@ const ListGrades = (setAuth) => {
 
     const getTasks = async () => {
         try {
-            const response = await fetch("http://localhost:5000/grades",
+            const response = await fetch(baseURL + "/grades",
             { headers: { jwt_token: localStorage.jwt_token }
         });
             const jsonData = await response.json();

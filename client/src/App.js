@@ -24,7 +24,7 @@ import Dashboard from './components/Dashboard';
 import ListTasks from './components/ListTasks';
 import PrioritizedTasks from './components/PrioritizedTasks';
 import Scheduler from './components/Test';
-
+import { baseURL } from './api/api-routes';
 
 
 toast.configure();
@@ -33,7 +33,7 @@ function App() {
   
   const checkAuthenticated = async () => {
     try {
-      const res = await fetch("http://localhost:5000/user/verify", {
+      const res = await fetch( baseURL + "/user/verify", {
         method: "POST",
         headers: { jwt_token: localStorage.jwt_token }
       });

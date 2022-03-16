@@ -3,6 +3,7 @@ import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardHeader }
 from 'mdb-react-ui-kit';
 import { AiFillFire } from 'react-icons/ai';
 import { toast } from "react-toastify";
+import { baseURL } from "../api/api-routes";
 
 const ListModules = (setAuth) => {
     const [modules, setModules] = useState([]);
@@ -23,7 +24,7 @@ const ListModules = (setAuth) => {
 
       const getProfile = async () => {
         try {
-          const res = await fetch("http://localhost:5000/dash", {
+          const res = await fetch( baseURL + "/dash", {
             method: "GET",
             headers: { jwt_token: localStorage.jwt_token }
           });
@@ -41,7 +42,7 @@ const ListModules = (setAuth) => {
 
     const getModules = async () => {
         try {
-            const response = await fetch("http://localhost:5000/modules/modulesoverview",
+            const response = await fetch( baseURL+ "/modulesoverview",
             { headers: { jwt_token: localStorage.jwt_token }
         });
             const jsonData = await response.json();
@@ -61,7 +62,7 @@ const ListModules = (setAuth) => {
             console.log(e.currentTarget.value);
             try {
                 const id = e.currentTarget.value;
-                const response = await fetch(`http://localhost:5000/modules/${id}`,
+                const response = await fetch( baseURL+ `/modules/${id}`,
                 { headers: { jwt_token: localStorage.jwt_token }
             });
                 const jsonData = await response.json();
