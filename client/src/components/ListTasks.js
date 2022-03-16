@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import InputTask from "../components/InputTask";
 import EditTask from "../components/EditTask";
 
-const ListTasks = ({ task, setAuth }) => {
+const ListTasks = ({ task }) => {
     const [tasks, setTasks] = useState([]);
     // for task complete status
     const [completeStatus, setCompleteStatus] = useState("");
@@ -123,7 +123,7 @@ const ListTasks = ({ task, setAuth }) => {
 
             <div className="row">
                 {filteredTasks && filteredTasks.map((task) => (
-                    <div className="mt-2 col col-md-3" key={task.task_id}>
+                    <div className="mt-2 col col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12" key={task.task_id}>
                         <MDBCard className={`card rounded mb-2 border ${task.module_colour}`} shadow='1' background='white' style={{ maxWidth: '18rem' }}>
                             <MDBCardHeader border="1">{task.module_name}
                                 <button className="bg-transparent border-0 float-right ms-2" value={task.task_id} onClick={completeTask}><AiFillCheckCircle color="green" size={20} /></button>
@@ -134,15 +134,15 @@ const ListTasks = ({ task, setAuth }) => {
                                 {task.description}
                                 {/* <MDBCardText> */}
                                 <div className="row no-gutters mt-auto mb-2 justify-content-center">
-                                    <div className="col-4 text-center">
+                                    <div className="col-4 col-md-4 text-center">
                                         <br />Days Left
                                         <h5>{task.daysLeft}</h5>
                                     </div>
-                                    <div className="col-4 text-center">
+                                    <div className="col-4 col-md-4  text-center">
                                         <br />CA Value
                                         <h5>{task.cavalue}%</h5>
                                     </div>
-                                    <div className="col-4 text-center">
+                                    <div className="col-4 col-md-4  text-center">
                                         <br />Priority
                                         <h5 className={task.priority}><AiFillFire /></h5>
                                     </div>
