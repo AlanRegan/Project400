@@ -11,7 +11,6 @@ import Home from "./pages/Home";
 import Modules from "./pages/Modules";
 import Grades from "./components/ListGrades";
 import Schedule from "./components/Schedule";
-import Landing from './components/Landing';
 //import Dashboard from './components/Dashboard';
 import { Fragment } from 'react';
 import Login from "./components/Login";
