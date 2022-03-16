@@ -1,4 +1,6 @@
+require("dotenv").config();
 const express = require("express");
+const PORT = process.env.PORT || 8080;
 const app = express();
 const cors = require("cors");
 //const pool = require("./db");
@@ -8,13 +10,14 @@ const { json } = require("express");
 app.use(cors());
 app.use(express.json()); // req.body
 
-app.use("/tasks", require("./routes/tasks"));
-app.use("/user", require("./routes/user"));
-app.use("/modules", require("./routes/modules"));
-app.use("/grades", require("./routes/grades"));
-app.use("/events", require("./routes/events"));
-app.use("/friends", require("./routes/friends"));
+app.use("/api/v1/tasks", require("./routes/tasks"));
+app.use("/api/v1/user", require("./routes/user"));
+app.use("/api/v1/modules", require("./routes/modules"));
+app.use("/api/v1/grades", require("./routes/grades"));
+app.use("/api/v1/events", require("./routes/events"));
+app.use("/api/v1/friends", require("./routes/friends"));
 
-app.listen(5000, () => {
-    console.log("server has started on port 5000");
-})
+// app.listen(5000, () => {
+//     console.log("server has started on port 5000");
+// })
+app.listen(PORT, () => console.log("Magic happening on PORT", +PORT));
