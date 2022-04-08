@@ -69,7 +69,7 @@ const Sidebar = ({ setAuth }) => {
                       <NavLink exact to="/grades">
                           <CDBSidebarMenuItem icon="user">Grades</CDBSidebarMenuItem>
                       </NavLink>
-                      <NavLink exact to="/schedule">
+                      <NavLink exact to="/schedule" id='schedules'>
                           <CDBSidebarMenuItem icon="calendar-check">Scheduler</CDBSidebarMenuItem>
                       </NavLink>
                   </CDBSidebarMenu>

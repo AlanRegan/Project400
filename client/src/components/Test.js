@@ -180,7 +180,7 @@ const Scheduler = ({setAuth}) => {
             </div>
 
             {/* event modal */}
-            <Modal show={showEvent} onHide={handleCloseEvent}>
+            <Modal show={showEvent} onHide={handleCloseEvent} className="eventModal">
                 <Modal.Header closeButton>
                     <Modal.Title>Create Event</Modal.Title>
                 </Modal.Header>
@@ -203,7 +203,7 @@ const Scheduler = ({setAuth}) => {
                             <DateTimePicker value={end} onChange={setEnd} format="YYYY-MM-DD HH:mm:ss" InputProps={{ disableUnderline: true } }  />
                         </MuiPickersUtilsProvider>
                         </div>
-                        <button className="btn btn-success mt-2">Add Event</button>
+                        <button id="AddEvent" className="btn btn-success mt-2">Add Event</button>
                     </form>
                 </Modal.Body>
             </Modal>

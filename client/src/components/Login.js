@@ -71,7 +71,7 @@ const Login = ({ setAuth }) => {
           </div>
           <div className="text-center">
         <Link className="mt-2 me-2 ml-3 text-center" to="/register">Create Account</Link>
-          <button className="btn btn-success mt-2 me-2 ml-3 mx-auto">Submit</button>
+          <button id="loginSubmit" className="btn btn-success mt-2 me-2 ml-3 mx-auto">Submit</button>
           </div>
         </form>
     </div>

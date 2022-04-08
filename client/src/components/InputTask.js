@@ -96,57 +96,60 @@ const InputTask = () => {
 
     return (
         <Fragment>
-            <button className="btn btn-success mt-2 me-2 ml-3" onClick={handleShowTask}>Create Task</button>
-            <button className="btn btn-success mt-2 me-1" onClick={handleShowModule}>Create Module</button>
+            <button id="createTask" className="btn btn-success mt-2 me-2 ml-3" onClick={handleShowTask}>Create Task</button>
+            <button id="createModule" className="btn btn-success mt-2 me-1" onClick={handleShowModule}>Create Module</button>
             {/* task modal */}
-            <Modal show={showTask} onHide={handleCloseTask}>
+            <Modal show={showTask} onHide={handleCloseTask} className="taskModal">
                 <Modal.Header closeButton>
                     <Modal.Title>Create Task</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="text-center mt-3" onSubmit={onSubmitTaskForm}>
                         <label for="module_name">Module Name</label>
-                        <select className="form-control" onChange={handleModuleChange}>
+                        <select id="moduleName" className="form-control name" onChange={handleModuleChange}>
                             <option value="⬇️ Select a Module ⬇️"> -- Select a Module -- </option>
                             {modules.map((module) => <option value={module.module_id}>{module.module_name}</option>)}
                         </select>
                         <label for="description">Task Description</label>
                         <input
+                            id="taskDesc"
                             type="text"
                             className="form-control"
                             value={description}
                             onChange={e => setDescription(e.target.value)}>
                         </input>
                         <label for="deadline">Due Date</label>
-                        <Form.Control type="date" name='deadline' value={deadline}
+                        <Form.Control id="taskDue" type="date" name='deadline' value={deadline}
                             onChange={e => setDeadline(e.target.value)} />
                         <label for="priority">Priority</label>
-                        <select defaultValue="Medium" className="form-control" value={priority} onChange={e => setPriority(e.target.value)}>
+                        <select id="taskPriority" defaultValue="Medium" className="form-control" value={priority} onChange={e => setPriority(e.target.value)}>
                             <option value="Low">Low</option>
                             <option value="Medium">Medium</option>
                             <option value="High">High</option>
                         </select>
                         <label for="caValue">CA Value</label>
                         <input
+                            id="taskCAValue"
                             type="text"
                             className="form-control"
                             value={caValue}
                             onChange={e => setCAValue(e.target.value)}>
                         </input>
-                        <button className="btn btn-success mt-2">Add Task</button>
+                        <button id="AddTask" className="btn btn-success mt-2">Add Task</button>
                     </form>
                 </Modal.Body>
             </Modal>
 
             {/* module modal */}
-            <Modal show={showModule} onHide={handleCloseModule}>
+            <Modal show={showModule} onHide={handleCloseModule} className="moduleModal">
                 <Modal.Header closeButton>
-                    <Modal.Title>Create Task</Modal.Title>
+                    <Modal.Title>Create Module</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="text-center mt-3" onSubmit={onSubmitModuleForm}>
                         <label for="module_name">Module Name</label>
                         <input
+                        id="moduleName"
                             type="text"
                             className="form-control"
                             value={module_name}
@@ -154,16 +157,17 @@ const InputTask = () => {
                         </input>
                         <label for="ca_total">CA Total</label>
                         <input
+                        id="moduleCAvalue"
                             type="text"
                             className="form-control"
                             value={ca_total}
                             onChange={e => setCATotalValue(e.target.value)}>
                         </input>
                         <label for="module_colour">Module Colour</label>
-                        <select className="form-control" value={module_colour} onChange={e => setModuleColour(e.target.value)}>
+                        <select id="moduleColour" className="form-control" value={module_colour} onChange={e => setModuleColour(e.target.value)}>
                             {colourData.map(colour => <option value={colour.value}>{colour.label}</option>)}
                         </select>
-                        <button className="btn btn-success mt-2">Add Module</button>
+                        <button id="AddModule" className="btn btn-success mt-2">Add Module</button>
                     </form>
                 </Modal.Body>
             </Modal>
