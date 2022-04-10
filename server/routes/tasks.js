@@ -1,10 +1,7 @@
 const express = require("express");
 const app = express();
-//const cors = require("cors");
-const pool = require("../db");
-const { json } = require("express");
 const authorize = require("../middleware/jwtAuthorization");
-//const router = require("express").Router();
+const pool = require("../db");
 
 // create task 
 app.post("/", authorize, async(req, res) => {
