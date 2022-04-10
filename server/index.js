@@ -10,8 +10,8 @@ const { json } = require("express");
 app.use(cors());
 app.use(express.json()); // req.body
 
-app.use("/api/v1/tasks", require("./routes/tasks"));
 app.use("/api/v1/user", require("./routes/user"));
+app.use("/api/v1/tasks", require("./routes/tasks"));
 app.use("/api/v1/modules", require("./routes/modules"));
 app.use("/api/v1/grades", require("./routes/grades"));
 app.use("/api/v1/events", require("./routes/events"));
