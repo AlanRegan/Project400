@@ -1,9 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-//import "bootstrap/dist/css/bootstrap.min.css";
-import Button from 'react-bootstrap/Button';
 import { baseURL } from "../api/api-routes";
+import { clientBaseURL } from "../api/client-routes";
 
 const InputTask = () => {
     // task
@@ -69,7 +68,7 @@ const InputTask = () => {
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
-            window.location = baseURL + "/tasks";
+            window.location = clientBaseURL + "/tasks";
         } catch (err) {
             console.log(err.message)
         }
@@ -89,7 +88,7 @@ const InputTask = () => {
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
-            window.location = baseURL + "/tasks";
+            window.location = clientBaseURL + "/tasks";
         } catch (err) {
             console.log(err.message)
         }
@@ -171,8 +170,5 @@ const InputTask = () => {
         </Fragment>
     );
 };
-
-
-
 
 export default InputTask;
