@@ -81,14 +81,14 @@ const InputTask = () => {
         try {
             const body = { description, deadline, priority, caValue, module_id };
             const myHeaders = new Headers();
-           // myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.jwt_token);
             const response = await fetch( baseURL + "/tasks", {
                 method: "POST",
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
-            window.location = clientBaseURL + "/tasks";
+           // window.location = clientBaseURL + "/tasks";
         } catch (err) {
             console.log(err.message)
         }
