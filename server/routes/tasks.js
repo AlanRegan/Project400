@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
+//const cors = require("cors");
 const pool = require("../db");
 const { json } = require("express");
 const authorize = require("../middleware/jwtAuthorization");
