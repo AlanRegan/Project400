@@ -42,7 +42,7 @@ const ListModules = (setAuth) => {
 
     const getModules = async () => {
         try {
-            const response = await fetch( baseURL+ "modules/modulesoverview",
+            const response = await fetch( baseURL+ "/modules/modulesoverview",
             { headers: { jwt_token: localStorage.jwt_token }
         });
             const jsonData = await response.json();

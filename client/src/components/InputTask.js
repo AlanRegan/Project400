@@ -88,7 +88,7 @@ const InputTask = () => {
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
-           // window.location = clientBaseURL + "/tasks";
+            window.location = clientBaseURL + "/tasks";
         } catch (err) {
             console.log(err.message)
         }
