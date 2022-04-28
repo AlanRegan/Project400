@@ -25,7 +25,7 @@ app.post("/", authorize, async(req, res) => {
 app.get("/", authorize, async(req, res) => {
     try {
         const allTasks = await pool.query
-        ("SELECT * FROM task as t INNER JOIN module as m on t.module_id = m.module_id where t.user_id = $1 AND completestatus is null"
+        ("SELECT * FROM task as t INNER JOIN module as m on t.module_id = m.module_id where t.user_id = $1 AND completestatus <> 'Complete' OR completestatus is null"
         ,[req.user.id]
         );
         for (var i = 0; i < allTasks.rows.length; i++) {
@@ -66,7 +66,8 @@ app.get("/soon", authorize, async(req, res) => {
 // get all high priority tasks
 app.get("/highpriority", authorize, async(req, res) => {
     try {
-        const prioritizedTasks = await pool.query("SELECT * FROM task as t INNER JOIN module as m on t.module_id = m.module_id WHERE priority='High' OR priority= 'Medium' AND m.user_id = $1 ORDER BY priority = 'High' desc",
+        const prioritizedTasks = await pool.query("SELECT * FROM task as t INNER JOIN module as m on t.module_id = m.module_id AND m.user_id = $1 ORDER BY (case priority when 'High' then 1 when 'Medium' then 2 when 'Low' then 3 end) fetch first 3 rows only"
+        ,
         [req.user.id]
         );
         for (var i = 0; i < prioritizedTasks.rows.length; i++) {
