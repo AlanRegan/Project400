@@ -9,50 +9,47 @@ import Modal from "react-bootstrap/Modal";
 import $ from 'jquery';
 import DateMomentUtils from '@date-io/moment'; // choose your lib
 import {
-  DatePicker,
-  TimePicker,
-  DateTimePicker,
-  MuiPickersUtilsProvider,
+    DatePicker,
+    TimePicker,
+    DateTimePicker,
+    MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 // pick a date util library
 import MomentUtils from '@date-io/moment';
 import { baseURL } from "../api/api-routes";
-
+import { clientBaseURL } from "../api/client-routes";
 
 const DnDCalendar = withDragAndDrop(Calendar);
 
 const localizer = momentLocalizer(moment);
-
-
 
 const onEventDrop = ({ event, start, end, allDay }) => {
     console.log("event clicked");
     console.log(start, event, end, allDay);
 };
 
-const Scheduler = ({setAuth}) => {
-    // const [ events, setEvents ] = React.useState(initialEvents);
+const Scheduler = ({ setAuth }) => {
     const [name, setName] = useState("");
 
     const [selectedDate, handleDateChange] = useState();
 
     const getProfile = async () => {
         try {
-          const res = await fetch( baseURL + "/dash", {
-            method: "GET",
-            headers: { jwt_token: localStorage.jwt_token }
-          });
-    
-          const parseData = await res.json();
-          setName(parseData.name);
+            const res = await fetch(baseURL + "/dash", {
+                method: "GET",
+                headers: { jwt_token: localStorage.jwt_token }
+            });
+
+            const parseData = await res.json();
+            setName(parseData.name);
         } catch (err) {
-          console.error("o");
+            console.error("o");
         }
-      };
-    
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         getProfile();
-      }, []);
+    }, []);
 
     const [events, setEvents] = useState([]);
     // Event
@@ -60,7 +57,6 @@ const Scheduler = ({setAuth}) => {
     const [user_id, setUserId] = useState("");
     const [task_id, setTaskId] = useState("");
     const [taskTitle, setTaskTitle] = useState("");
-  //  const [title, setTitle] = useState("");
     const [start, setStart] = useState("");
     const [end, setEnd] = useState("");
     // modal - event creation
@@ -71,10 +67,10 @@ const Scheduler = ({setAuth}) => {
     function convertDate(date) {
         return moment(date).toDate()
     }
-    
+
     const getEvents = async () => {
         try {
-            const response = await fetch( baseURL + "/events",
+            const response = await fetch(baseURL + "/events",
                 {
                     headers: { jwt_token: localStorage.jwt_token }
                 });
@@ -89,36 +85,37 @@ const Scheduler = ({setAuth}) => {
             console.error(err.message)
         }
     };
-    
+
     useEffect(() => {
         getEvents();
     }, []);
 
-        // module post call
-        const onSubmitEventForm = async (e) => {
-            e.preventDefault();
-            try {
-                var title = $("#task_name option:selected").text();
-                const body = { task_id, title, start, end };
-                const myHeaders = new Headers();
-                myHeaders.append("Content-Type", "application/json");
-                myHeaders.append("jwt_token", localStorage.jwt_token);
-                const response = await fetch("http://localhost:5000/events", {
-                    method: "POST",
-                    headers: myHeaders,
-                    body: JSON.stringify(body)
-                });
-                window.location = "/schedule";
-            } catch (err) {
-                console.log(err.message)
-            }
-        };
-    
+    // module post call
+    const onSubmitEventForm = async (e) => {
+        e.preventDefault();
+        try {
+            var title = $("#task_name option:selected").text();
+            const body = { task_id, title, start, end };
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("jwt_token", localStorage.jwt_token);
+            const response = await fetch(baseURL + "/events", {
+                method: "POST",
+                headers: myHeaders,
+                body: JSON.stringify(body)
+            });
+            window.location = clientBaseURL + "/schedule";
+        } catch (err) {
+            console.log(err.message)
+        }
+    };
+
     const getTasks = async () => {
         try {
-            const response = await fetch( baseURL + "/tasks",
-            { headers: { jwt_token: localStorage.jwt_token }
-            });
+            const response = await fetch(baseURL + "/tasks",
+                {
+                    headers: { jwt_token: localStorage.jwt_token }
+                });
             const jsonData = await response.json();
             setTasks(jsonData);
             console.log(jsonData);
@@ -126,7 +123,7 @@ const Scheduler = ({setAuth}) => {
             console.error(err.message)
         }
     };
-    
+
     useEffect(() => {
         getTasks();
     }, []);
@@ -175,7 +172,7 @@ const Scheduler = ({setAuth}) => {
                         setEnd(data.end)
                         console.log("onSelectEvent", data);
                     }}
-                    
+
                     onSelectEvent={event => alert(event.desc)}
                 />
             </div>
@@ -188,21 +185,21 @@ const Scheduler = ({setAuth}) => {
                 <Modal.Body>
                     <form className="text-center mt-3" onSubmit={onSubmitEventForm}>
                         <label for="tasks">Tasks</label>
-                         <select className="form-control" onChange={handleTaskChange} id="task_name">
+                        <select className="form-control" onChange={handleTaskChange} id="task_name">
                             <option value="⬇️ Select a Task ⬇️"> -- Select a Task -- </option>
                             {tasks.map((task) => <option value={task.task_id}>{task.description}</option>)}
                         </select>
                         <label for="start">Start</label>
                         <div className="form-control">
-                        <MuiPickersUtilsProvider utils={DateMomentUtils} >
-                            <DateTimePicker value={start} onChange={setStart} format="YYYY-MM-DD HH:mm:ss" InputProps={{ disableUnderline: true } }  />
-                        </MuiPickersUtilsProvider>
+                            <MuiPickersUtilsProvider utils={DateMomentUtils} >
+                                <DateTimePicker value={start} onChange={setStart} format="YYYY-MM-DD HH:mm:ss" InputProps={{ disableUnderline: true }} />
+                            </MuiPickersUtilsProvider>
                         </div>
                         <label for="start">End</label>
                         <div className="form-control">
-                        <MuiPickersUtilsProvider utils={DateMomentUtils} >
-                            <DateTimePicker value={end} onChange={setEnd} format="YYYY-MM-DD HH:mm:ss" InputProps={{ disableUnderline: true } }  />
-                        </MuiPickersUtilsProvider>
+                            <MuiPickersUtilsProvider utils={DateMomentUtils} >
+                                <DateTimePicker value={end} onChange={setEnd} format="YYYY-MM-DD HH:mm:ss" InputProps={{ disableUnderline: true }} />
+                            </MuiPickersUtilsProvider>
                         </div>
                         <button className="btn btn-success mt-2">Add Event</button>
                     </form>

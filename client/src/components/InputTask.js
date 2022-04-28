@@ -35,9 +35,10 @@ const InputTask = () => {
     // get modules for task module name dropbox
     const getModules = async () => {
         try {
-            const response = await fetch( baseURL + "/modules",
-            { headers: { jwt_token: localStorage.jwt_token }
-        });
+            const response = await fetch(baseURL + "/modules",
+                {
+                    headers: { jwt_token: localStorage.jwt_token }
+                });
             const jsonData = await response.json();
             setModule(jsonData);
         } catch (err) {
@@ -63,7 +64,7 @@ const InputTask = () => {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.jwt_token);
-            const response = await fetch( baseURL + "/modules", {
+            const response = await fetch(baseURL + "/modules", {
                 method: "POST",
                 headers: myHeaders,
                 body: JSON.stringify(body)
@@ -83,7 +84,7 @@ const InputTask = () => {
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.jwt_token);
-            const response = await fetch( baseURL + "/tasks", {
+            const response = await fetch(baseURL + "/tasks", {
                 method: "POST",
                 headers: myHeaders,
                 body: JSON.stringify(body)

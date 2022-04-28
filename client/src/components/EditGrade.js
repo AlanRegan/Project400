@@ -1,6 +1,7 @@
 import { React, Fragment, useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-import { baseURL } from '../api/api-routes'
+import { baseURL } from '../api/api-routes';
+import { clientBaseURL } from "../api/client-routes";
 
 const EditGrade = ({ setAuth, task }) => {
   const [grade, setGrade] = useState(task.grade);
@@ -23,13 +24,12 @@ const EditGrade = ({ setAuth, task }) => {
         const res = await fetch( baseURL + "/dash", {
           method: "GET",
           headers: { jwt_token: localStorage.jwt_token }
-        });
-  
+        }); 
         const parseData = await res.json();
         setName(parseData.name);
         console.log(parseData);
       } catch (err) {
-        console.error("o");
+        console.error(err.message);
       }
     };
   
@@ -52,7 +52,7 @@ const EditGrade = ({ setAuth, task }) => {
           body: JSON.stringify(body)
         }
         );
-        window.location = baseURL + "/grades";
+        window.location = clientBaseURL + "/grades";
         console.log(task.task_id);
     } catch (err) {
     }

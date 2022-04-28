@@ -26,7 +26,7 @@ const ListTasks = ({ task }) => {
 
     const getProfile = async () => {
         try {
-            const res = await fetch( baseURL+ "/dash", {
+            const res = await fetch(baseURL + "/dash", {
                 method: "GET",
                 headers: { jwt_token: localStorage.jwt_token }
             });
@@ -61,7 +61,7 @@ const ListTasks = ({ task }) => {
 
     const getTasks = async () => {
         try {
-            const response = await fetch( baseURL + "/tasks",
+            const response = await fetch(baseURL + "/tasks",
                 {
                     headers: { jwt_token: localStorage.jwt_token }
                 });
@@ -87,7 +87,7 @@ const ListTasks = ({ task }) => {
         try {
             const id = e.currentTarget.value;
             const body = { completeStatus: 'Complete' };
-            const response = await fetch( baseURL+ `/tasks/completetask/${id}`, {
+            const response = await fetch(baseURL + `/tasks/completetask/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body)

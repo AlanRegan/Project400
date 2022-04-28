@@ -48,40 +48,40 @@ const Register = ({ setAuth }) => {
     <div className="mx-auto">
       <h1 className="text-center">Register</h1>
       <form onSubmit={onSubmitForm} className="mx-auto">
-      <div class="form-group form-inline">
-        <input
-          type="text"
-          name="email"
-          value={email}
-          placeholder="email"
-          onChange={e => onChange(e)}
-          className="form-control my-3 form-control ml-3 mx-auto"
-        />
+        <div class="form-group form-inline">
+          <input
+            type="text"
+            name="email"
+            value={email}
+            placeholder="email"
+            onChange={e => onChange(e)}
+            className="form-control my-3 form-control ml-3 mx-auto"
+          />
         </div>
         <div class="form-group form-inline">
-        <input
-          type="password"
-          name="password"
-          value={password}
-          placeholder="password"
-          onChange={e => onChange(e)}
-          className="form-control my-3 form-control ml-3 mx-auto"
-        />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            placeholder="password"
+            onChange={e => onChange(e)}
+            className="form-control my-3 form-control ml-3 mx-auto"
+          />
         </div>
         <div class="form-group form-inline ">
-        <input
-          type="text"
-          name="name"
-          value={name}
-          placeholder="name"
-          onChange={e => onChange(e)}
-          className="form-control my-3 form-control ml-3 mx-auto"
-        />
+          <input
+            type="text"
+            name="name"
+            value={name}
+            placeholder="name"
+            onChange={e => onChange(e)}
+            className="form-control my-3 form-control ml-3 mx-auto"
+          />
         </div>
         <div className="text-center">
-      <Link className="mt-2 me-2 ml-3 text-center" to="/login">Login</Link>
-        <button className="btn btn-success mt-2 me-2 ml-3 mx-auto">Submit</button>
-    </div>
+          <Link className="mt-2 me-2 ml-3 text-center" to="/login">Login</Link>
+          <button className="btn btn-success mt-2 me-2 ml-3 mx-auto">Submit</button>
+        </div>
       </form>
     </div>
   );

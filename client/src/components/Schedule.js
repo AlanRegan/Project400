@@ -8,30 +8,24 @@ moment.locale("en-GB");
 const localizer = momentLocalizer(moment);
 
 const Schedule = ({ setAuth }) => {
-    const [name, setName] = useState("");
+  const [name, setName] = useState("");
+  const getProfile = async () => {
+    try {
+      const res = await fetch(baseURL + "/dash", {
+        method: "GET",
+        headers: { jwt_token: localStorage.jwt_token }
+      });
 
+      const parseData = await res.json();
+      setName(parseData.name);
+    } catch (err) {
+      console.error("o");
+    }
+  };
 
-
-
-    const getProfile = async () => {
-        try {
-          const res = await fetch( baseURL + "/dash", {
-            method: "GET",
-            headers: { jwt_token: localStorage.jwt_token }
-          });
-    
-          const parseData = await res.json();
-          setName(parseData.name);
-        } catch (err) {
-          console.error("o");
-        }
-      };
-    
-      useEffect(() => {
-        getProfile();
-      }, []);
-
-
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   // const [task, setTask] = useState(task);
   const [events, setEvents] = useState([]);
@@ -42,37 +36,33 @@ const Schedule = ({ setAuth }) => {
 
   const getEvents = async () => {
     try {
-        const response = await fetch( baseURL + "/events",
-        { headers: { jwt_token: localStorage.jwt_token }
+      const response = await fetch(baseURL + "/events",
+        {
+          headers: { jwt_token: localStorage.jwt_token }
         });
-        let jsonData = await response.json();
-        // for (let i = 0; i < jsonData.length; i++) {
-        //     jsonData[i].start_date = convertDate(jsonData[i].start_date)
-        //     jsonData[i].end_date = convertDate(jsonData[i].end_date)
-        // }
-        setEvents(jsonData);
-        // console.log("events:" +jsonData)
+      let jsonData = await response.json();
+      setEvents(jsonData);
     } catch (err) {
-        console.error(err.message)
+      console.error(err.message)
     }
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     getEvents();
-}, []);
+  }, []);
 
   return (
     <Fragment>
-      <div style={{height: 700}}>
-            <Calendar
-              localizer={localizer}
-              events={events}
-              step={30}
-              defaultView='month'
-              views={['month','week','day']}
-              defaultDate={new Date()}
-          />
-        </div>
+      <div style={{ height: 700 }}>
+        <Calendar
+          localizer={localizer}
+          events={events}
+          step={30}
+          defaultView='month'
+          views={['month', 'week', 'day']}
+          defaultDate={new Date()}
+        />
+      </div>
     </Fragment>
   );
 };

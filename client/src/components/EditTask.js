@@ -1,10 +1,9 @@
-import {React, Fragment, useState } from "react";
+import { React, Fragment, useState } from "react";
 import { AiFillEdit } from 'react-icons/ai';
 import Form from "react-bootstrap/Form";
 import { baseURL } from "../api/api-routes";
 
 const EditTask = ({ task }) => {
-  // const [task, setTask] = useState(task);
   const [description, setDescription] = useState(task.description);
   const [deadline, setDeadline] = useState(task.deadline);
   const [priority, setPriority] = useState(task.priority);
@@ -16,14 +15,14 @@ const EditTask = ({ task }) => {
     e.preventDefault();
     try {
       const body = { task };
-      const response = await fetch( baseURL +
+      const response = await fetch(baseURL +
         `/tasks/${task.task_id}`,
         {
           method: "PUT",
           headers: { jwt_token: localStorage.jwt_token },
           body: JSON.stringify(body)
         }
-        );
+      );
     } catch (err) {
       console.error(err.message);
     }
@@ -39,24 +38,14 @@ const EditTask = ({ task }) => {
       >
         <AiFillEdit color="blue" size={20} />
       </button>
-
       <div
         class="modal"
         id={`id${task.task_id}`}
-       
       >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Edit Task</h4>
-              {/* <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                onClick={() => setDescription(task.description)}
-              >
-                &times;
-              </button> */}
             </div>
 
             <div class="modal-body">
@@ -69,7 +58,7 @@ const EditTask = ({ task }) => {
               />
               <label className="pt-2">Deadline</label>
               <Form.Control type="date" name="date"
-               onChange={e => setDeadline(e.target.value)} />
+                onChange={e => setDeadline(e.target.value)} />
               <label className="pt-2">CA Value</label>
               <input
                 type="text"
@@ -85,7 +74,6 @@ const EditTask = ({ task }) => {
                 onChange={e => setPriority(e.target.value)}
               />
             </div>
-
             <div class="modal-footer">
               <button
                 type="button"
@@ -95,15 +83,6 @@ const EditTask = ({ task }) => {
               >
                 Confirm
               </button>
-
-              {/* <button
-                type="button"
-                class="btn btn-danger"
-                data-dismiss="modal"
-                onClick={() => setDescription(task.description)}
-              >
-                Close
-              </button> */}
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-//import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
 import { baseURL } from "../api/api-routes";
 

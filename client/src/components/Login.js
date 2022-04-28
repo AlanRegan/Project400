@@ -36,7 +36,7 @@ const Login = ({ setAuth }) => {
         setAuth(true);
         toast.success("Logged in Successfully");
         console.log(parseRes)
-    } else {
+      } else {
         setAuth(false);
         toast.error(parseRes);
       }
@@ -45,10 +45,10 @@ const Login = ({ setAuth }) => {
     }
   };
 
-  return (   
-      <div className="mx-auto">
+  return (
+    <div className="mx-auto">
       <h2 className="text-center">Login</h2>
-        <form onSubmit={onSubmitForm} className="mx-auto">
+      <form onSubmit={onSubmitForm} className="mx-auto">
         <div class="form-group form-inline ">
           <input
             type="text"
@@ -58,9 +58,9 @@ const Login = ({ setAuth }) => {
             onChange={e => onChange(e)}
             className="form-control ml-3 mx-auto"
           />
-          </div>
-          <br></br>
-          <div class="form-group form-inline">
+        </div>
+        <br></br>
+        <div class="form-group form-inline">
           <input
             type="password"
             name="password"
@@ -69,12 +69,12 @@ const Login = ({ setAuth }) => {
             onChange={e => onChange(e)}
             className="form-control ml-3 mx-auto"
           />
-          </div>
-          <div className="text-center">
-        <Link className="mt-2 me-2 ml-3 text-center" to="/register">Create Account</Link>
+        </div>
+        <div className="text-center">
+          <Link className="mt-2 me-2 ml-3 text-center" to="/register">Create Account</Link>
           <button className="btn btn-success mt-2 me-2 ml-3 mx-auto">Submit</button>
-          </div>
-        </form>
+        </div>
+      </form>
     </div>
   );
 };

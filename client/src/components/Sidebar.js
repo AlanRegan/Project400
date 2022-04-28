@@ -17,33 +17,33 @@ const Sidebar = ({ setAuth }) => {
   const [name, setName] = useState("");
 
   const logout = async e => {
-      e.preventDefault();
-      try {
-        localStorage.removeItem("jwt_token");
-        setAuth(false);
-        toast.success("Logout successfully");
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
+    e.preventDefault();
+    try {
+      localStorage.removeItem("jwt_token");
+      setAuth(false);
+      toast.success("Logout successfully");
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
-    const getProfile = async () => {
-      try {
-        const res = await fetch( baseURL + "/dash", {
-          method: "GET",
-          headers: { jwt_token: localStorage.jwt_token }
-        });
-  
-        const parseData = await res.json();
-        setName(parseData.name);
-      } catch (err) {
-        console.error("o");
-      }
-    };
-  
-    useEffect(() => {
-      getProfile();
-    }, []);
+  const getProfile = async () => {
+    try {
+      const res = await fetch(baseURL + "/dash", {
+        method: "GET",
+        headers: { jwt_token: localStorage.jwt_token }
+      });
+
+      const parseData = await res.json();
+      setName(parseData.name);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
 
 
   return (
@@ -51,34 +51,34 @@ const Sidebar = ({ setAuth }) => {
       <CDBSidebar textColor="#fff" backgroundColor="#333">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
           <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-          PrioriTask
+            PrioriTask
           </a>
         </CDBSidebarHeader>
-              <CDBSidebarContent className="sidebar-content">
-                  <CDBSidebarMenu>
+        <CDBSidebarContent className="sidebar-content">
+          <CDBSidebarMenu>
 
 
-                      <NavLink exact to="/" element={<Home />}>
-                          <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
-                      </NavLink>
-                      <NavLink exact to="/tasks">
-                          <CDBSidebarMenuItem icon="table">Tasks</CDBSidebarMenuItem>
-                      </NavLink>
-                      <NavLink exact to="/modules">
-                          <CDBSidebarMenuItem icon="user">Module Overview</CDBSidebarMenuItem>
-                      </NavLink>
-                      <NavLink exact to="/grades">
-                          <CDBSidebarMenuItem icon="user">Grades</CDBSidebarMenuItem>
-                      </NavLink>
-                      <NavLink exact to="/schedule">
-                          <CDBSidebarMenuItem icon="calendar-check">Scheduler</CDBSidebarMenuItem>
-                      </NavLink>
-                  </CDBSidebarMenu>
-                          <CDBSidebarMenuItem icon="arrow-right">             
-                           <button onClick={e => logout(e)} className="btn btn-link ps-0" style={{color: 'white'}}>
-          Logout
-        </button></CDBSidebarMenuItem>
-              </CDBSidebarContent>
+            <NavLink exact to="/" element={<Home />}>
+              <CDBSidebarMenuItem icon="columns">Home</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/tasks">
+              <CDBSidebarMenuItem icon="table">Tasks</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/modules">
+              <CDBSidebarMenuItem icon="user">Module Overview</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/grades">
+              <CDBSidebarMenuItem icon="user">Grades</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/schedule">
+              <CDBSidebarMenuItem icon="calendar-check">Scheduler</CDBSidebarMenuItem>
+            </NavLink>
+          </CDBSidebarMenu>
+          <CDBSidebarMenuItem icon="arrow-right">
+            <button onClick={e => logout(e)} className="btn btn-link ps-0" style={{ color: 'white' }}>
+              Logout
+            </button></CDBSidebarMenuItem>
+        </CDBSidebarContent>
 
         <CDBSidebarFooter style={{ textAlign: 'center' }}>
           <div

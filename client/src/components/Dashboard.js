@@ -3,30 +3,8 @@ import { toast } from "react-toastify";
 import ListTasks from "./ListTasks";
 import {baseURL} from '../api/api-routes'
 
-//components
-
-// import TodoCreate from "./todolist/Create";
-// import TodoList from "./todolist/List";
-
 const Dashboard = ({ setAuth }) => {
   const [name, setName] = useState("");
-//   const [description, setDescription] = useState("");
-//   const [allTodos, setAllTodos] = useState([]);
-//   const [todosChange, setTodosChange] = useState(false);
-
-//   const getProfile = async () => {
-//     try {
-//       const res = await fetch("http://localhost:5000/dashboard/", {
-//         method: "GET",
-//         headers: { jwt_token: localStorage.jwt_token }
-//       });
-
-//       const parseData = await res.json();
-//       setName(parseData.name);
-//     } catch (err) {
-//       console.error(err.message);
-//     }
-//   };
 
   const logout = async e => {
     e.preventDefault();
@@ -50,7 +28,7 @@ const Dashboard = ({ setAuth }) => {
       const parseData = await res.json();
       setName(parseData.name);
     } catch (err) {
-      console.error("o");
+      console.error("error getting profile");
     }
   };
 
