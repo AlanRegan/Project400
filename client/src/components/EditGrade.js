@@ -44,7 +44,7 @@ const EditGrade = ({ setAuth, task }) => {
     try {
       const body = { grade };
       const response = await fetch( baseURL +
-        `grades/${task.task_id}`,
+        `/grades/${task.task_id}`,
         {
           method: "PUT",
           headers: { jwt_token: localStorage.jwt_token,
