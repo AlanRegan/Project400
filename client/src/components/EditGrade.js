@@ -15,7 +15,7 @@ const EditGrade = ({ setAuth, task }) => {
         setAuth(false);
         toast.success("Logout successfully");
       } catch (err) {
-        console.error(err.message);
+        console.error("log out error");
       }
     };
 
@@ -29,7 +29,7 @@ const EditGrade = ({ setAuth, task }) => {
         setName(parseData.name);
         console.log(parseData);
       } catch (err) {
-        console.error(err.message);
+        console.error("profile error");
       }
     };
   
@@ -52,7 +52,7 @@ const EditGrade = ({ setAuth, task }) => {
           body: JSON.stringify(body)
         }
         );
-        window.location = clientBaseURL + "/grades";
+        window.location = "/grades";
         console.log(task.task_id);
     } catch (err) {
     }

@@ -104,7 +104,7 @@ const Scheduler = ({ setAuth }) => {
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
-            window.location = clientBaseURL + "/schedule";
+            window.location = "/schedule";
         } catch (err) {
             console.log(err.message)
         }

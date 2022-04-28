@@ -13,11 +13,10 @@ const Dashboard = ({ setAuth }) => {
       setAuth(false);
       toast.success("Logout successfully");
     } catch (err) {
-      console.error(err.message);
+      console.error("log out error");
     }
   };
   
-
   const getProfile = async () => {
     try {
       const res = await fetch( baseURL +"/dash", {

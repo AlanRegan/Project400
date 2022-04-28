@@ -18,7 +18,7 @@ const ListModules = (setAuth) => {
             setAuth(false);
             toast.success("Logout successfully");
         } catch (err) {
-            console.error(err.message);
+            console.error("profile error");
         }
     };
 
@@ -32,7 +32,7 @@ const ListModules = (setAuth) => {
             const parseData = await res.json();
             setName(parseData.name);
         } catch (err) {
-            console.error(err.message);
+            console.error("profile error");
         }
     };
 
@@ -70,7 +70,7 @@ const ListModules = (setAuth) => {
             const jsonData = await response.json();
             setModuleTasks(jsonData);
         } catch (err) {
-            console.log(err.message)
+            console.log("module tasks error")
         }
     };
 

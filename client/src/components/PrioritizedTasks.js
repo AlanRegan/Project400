@@ -128,7 +128,7 @@ const PrioritizedTasks = (setAuth) => {
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
-            window.location = clientBaseURL + "/tasks";
+            window.location = "/tasks";
         } catch (err) {
             console.log(err.message)
         }

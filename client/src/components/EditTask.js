@@ -24,7 +24,7 @@ const EditTask = ({ task }) => {
         }
       );
     } catch (err) {
-      console.error(err.message);
+      console.error("Task update error");
     }
   };
 
