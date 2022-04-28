@@ -83,22 +83,22 @@ const ListModules = (setAuth) => {
         <Fragment>
             <div className="row">
                 {modules.map(module => (
-                    <div className="mt-2 col col-md-4" key={module.module_id}>
+                    <div className="mt-2 col col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12" key={module.module_id}>
                         <button className={`card rounded mb-2 border ${module.module_colour}`} value={module.module_id} onClick={getModuleTasks}>
 
                             <MDBCard className={`card rounded mb-2 border ${module.module_colour}`} background='white'>
                                 <MDBCardHeader>{module.module_name}</MDBCardHeader>
                                 <MDBCardBody className='text-dark'>
                                     <div className="row mt-auto mb-2 justify-content-center">
-                                        <div className="col-12 text-center">
+                                        <div className="col-md-12 col-sm-12 text-center">
                                             <br />CA Total
                                             <h5>{module.ca_total}%</h5>
                                         </div>
-                                        <div className="col-6 text-center">
+                                        <div className="col-md-6 col-sm-12 text-center">
                                             <br />Completed
                                             <h5>{module.currentlycompleted}%</h5>
                                         </div>
-                                        <div className="col-6 text-center">
+                                        <div className="col-md-6 col-sm-12 text-center">
                                             <br />Current Grade
                                             <h5>{module.grade}%</h5>
                                         </div>

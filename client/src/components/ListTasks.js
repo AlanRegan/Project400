@@ -30,7 +30,6 @@ const ListTasks = ({ task }) => {
                 method: "GET",
                 headers: { jwt_token: localStorage.jwt_token }
             });
-
             const parseData = await res.json();
             setName(parseData.name);
         } catch (err) {
@@ -104,7 +103,6 @@ const ListTasks = ({ task }) => {
     return (
         <div>
             <InputTask></InputTask>
-
             <button className="btn bg-transparent mt-2 High" onClick={() => showHighPriority()}>
                 <h5 className="High"><AiFillFire /></h5>
             </button>
@@ -124,7 +122,7 @@ const ListTasks = ({ task }) => {
 
             <div className="row">
                 {filteredTasks && filteredTasks.map((task) => (
-                    <div className="mt-2 col col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12" key={task.task_id}>
+                    <div className="mt-2 col col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12" key={task.task_id}>
                         <MDBCard className={`card rounded mb-2 border ${task.module_colour}`} shadow='1' background='white' style={{ maxWidth: '18rem' }}>
                             <MDBCardHeader border="1">{task.module_name}
                                 <button className="bg-transparent border-0 float-right ms-2" value={task.task_id} onClick={completeTask}><AiFillCheckCircle color="green" size={20} /></button>
@@ -135,15 +133,15 @@ const ListTasks = ({ task }) => {
                                 {task.description}
                                 {/* <MDBCardText> */}
                                 <div className="row no-gutters mt-auto mb-2 justify-content-center">
-                                    <div className="col-4 col-md-4 text-center">
+                                    <div className="col-4 col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 text-center">
                                         <br />Days Left
                                         <h5>{task.daysLeft}</h5>
                                     </div>
-                                    <div className="col-4 col-md-4  text-center">
+                                    <div className="col-4 col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 text-center">
                                         <br />CA Value
                                         <h5>{task.cavalue}%</h5>
                                     </div>
-                                    <div className="col-4 col-md-4  text-center">
+                                    <div className="col-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12  text-center">
                                         <br />Priority
                                         <h5 className={task.priority}><AiFillFire /></h5>
                                     </div>
@@ -156,7 +154,6 @@ const ListTasks = ({ task }) => {
                 }
             </div>
             <div><Toaster /></div>
-
         </div>
     );
 };

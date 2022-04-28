@@ -26,10 +26,11 @@ const InputTask = () => {
     const handleShowModule = () => setShowModule(true);
     // module colours dropbox
     const colourData = [
-        { value: "Red", label: "Red" },
-        { value: "Green", label: "Green" },
-        { value: "Blue", label: "Blue" },
-        { value: "Yellow", label: "Yellow" }
+        { value: "border-dark text-dark", label: "Black" },
+        { value: "border-primary text-primary", label: "Blue" },
+        { value: "border-success text-success", label: "Green" },
+        { value: "border-danger text-danger", label: "Red" },
+        { value: "border-warning text-warning", label: "Yellow" }
     ];
 
     // get modules for task module name dropbox
@@ -142,7 +143,7 @@ const InputTask = () => {
             {/* module modal */}
             <Modal show={showModule} onHide={handleCloseModule}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Create Task</Modal.Title>
+                    <Modal.Title>Create Module</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="text-center mt-3" onSubmit={onSubmitModuleForm}>

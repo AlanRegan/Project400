@@ -143,7 +143,7 @@ const PrioritizedTasks = (setAuth) => {
 
     return (
         <div class="row">
-            <div class="col-md-8 mb-3 mt-4">
+            <div class="col-xl-7 col-lg-7 col-md-12 mb-3 mt-4">
                 <div class="page-content page-container" id="page-content">
                     <div class="row container d-flex justify-content-center">
                         <div class=" grid-margin stretch-card">
@@ -181,7 +181,7 @@ const PrioritizedTasks = (setAuth) => {
                 </div>
 
             </div>
-            <div class="col-md-4 mt-4">
+            <div class="mt-4 col-xl-4 col-lg-4 col-md-12">
                 <div class="">
                     <div class="container">
                         <h5 className="text-center">Modules</h5>
@@ -200,7 +200,7 @@ const PrioritizedTasks = (setAuth) => {
                 </div>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-xl-7 col-lg-7 col-md-12 mb-3">
                 <div class="page-content page-container" id="page-content">
                     <div class="row container d-flex justify-content-center">
                         <div class="grid-margin stretch-card">
@@ -240,7 +240,7 @@ const PrioritizedTasks = (setAuth) => {
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-xl-4 col-lg-4 col-md-12">
                 <div class="page-content page-container" id="page-content">
                     <div class="row container d-flex justify-content-center">
                         <div class="grid-margin stretch-card">
